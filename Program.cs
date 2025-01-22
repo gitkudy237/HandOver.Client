@@ -1,9 +1,11 @@
+using HandOver.Client.Clients;
 using HandOver.Client.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents();
+builder.Services.AddSingleton<ItemsClient>();
 
 var app = builder.Build();
 
