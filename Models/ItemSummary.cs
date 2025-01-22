@@ -3,6 +3,7 @@
 public class ItemSummary
 {
     public required string Name { get; set; }
+    public required string Category { get; set; }
     public string? ImageUrl { get; set; }
     public required string Location { get; set; }
     public decimal Price { get; set; }
