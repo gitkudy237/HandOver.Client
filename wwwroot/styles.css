@@ -304,6 +304,11 @@ a {
   border-radius: 15px;
   overflow: hidden;
   cursor: pointer;
+  transition: box-shadow .2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 0 3px var(--color-background-green);
 }
 
 .card:hover .card-header img {
@@ -323,19 +328,27 @@ a {
 
 .card-body {
   padding: 0.5rem;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: 5px;
 }
 
 .card-title {
-  font-weight: 500;
   font-size: medium;
   line-height: 1.1;
+  color: var(--color-grey-700);
 }
 
 .price {
   font-size: larger;
   font-weight: 700;
   color: var(--color-grey-800);
-  margin-block: 5px;
+}
+
+.item-category {
+    font-size: 0.8rem;
+    color: var(--color-primary);
+    font-weight: bold;
 }
 
 .details,

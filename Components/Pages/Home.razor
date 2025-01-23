@@ -17,14 +17,16 @@
                 <article class="card">
                     <div class="card-header">
                         <img src=@item.ImageUrl
-                             alt="" />
+                             alt=@item.Name />
                     </div>
-                    <div class="card-body">
+                    <div class="card-body flex">
                         <h3 class="card-title">
                             @item.Name
                         </h3>
-                        <span class="badge badge--simple">@item.Category</span>
-                        <p class="price">@item.Price + " FCFA"</p>
+                        <p class="price">@item.Price  FCFA</p>
+                        <div class="item-category">
+                            <span>@item.Category</span>
+                        </div>
                         <div class="details">
                             <p class="location">
                                 <i class="fa-solid fa-location-dot icon--primary"></i>
