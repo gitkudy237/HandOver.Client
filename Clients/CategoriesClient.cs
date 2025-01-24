@@ -4,7 +4,7 @@ namespace HandOver.Client.Clients;
 
 public class CategoriesClient
 {
-    private readonly Category[] categories =
+    private readonly Category[] _categories =
     {
         new() {Id = 1, Name = "furnitures"},
         new() {Id = 2, Name = "vehicles"},
@@ -19,6 +19,8 @@ public class CategoriesClient
 
     public Category[] GetCategories()
     {
-        return [.. categories];
+        return [.. _categories];
     }
+
+    
 }

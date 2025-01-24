@@ -9,7 +9,7 @@ public class ItemsClient
 
             new() {
                 Name = "Yamaha Acoustic Guitar",
-                Category = "Music",
+                Category = "music",
                 ImageUrl = "Images/guitar.jpg",
                 Location = "Yaounde",
                 Price = 50_000m,
@@ -17,7 +17,7 @@ public class ItemsClient
             },
             new() {
                 Name = "Wooden Chair",
-                Category = "Furnitures",
+                Category = "furnitures",
                 ImageUrl = "Images/chair.jpg",
                 Location = "Yaounde",
                 Price = 10_500m,
@@ -29,5 +29,11 @@ public class ItemsClient
     public ItemSummary[] GetItems()
     {
         return [.. _items];
+    }
+
+    public List<ItemSummary> GetItems(string category)
+    {
+        var items = _items.Where(i => i.Category == category).ToList();
+        return items;
     }
 }
