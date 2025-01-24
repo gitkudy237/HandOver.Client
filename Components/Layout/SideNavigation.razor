@@ -20,33 +20,12 @@
          @foreach (var category in _categories!)
                 {
                     <li class="dropdown-item">
-                       <a href=@GetCategoryRoute(category.Id)><span class="icon-group"><i class="fa-solid fa-inbox"></i></span>@category.Name</a>
+                       <a href=@GetCategoryRoute(category.Id)>
+                           <span class="icon-group"><i class=@_categoryIcons[category.Id]></i></span>
+                           <span style="text-transform:capitalize">@category.Name</span>
+                       </a>
                     </li>
                 }
-        @* <li class="dropdown-item">
-          <a href=""><span class="icon-group"><i class="fa-solid fa-car"></i></span>Vehicles</a>
-        </li>
-        <li class="dropdown-item">
-          <a href=""><span class="icon-group"><i class="fa-solid fa-mobile-screen-button"></i></span>Devices</a>
-        </li>
-        <li class="dropdown-item">
-          <a href=""><span class="icon-group"><i class="fa-solid fa-gamepad"></i></span>Entertainment</a>
-        </li>
-        <li class="dropdown-item">
-          <a href=""><span class="icon-group"><i class="fa-solid fa-shirt"></i></span>Clothing</a>
-        </li>
-        <li class="dropdown-item">
-          <a href=""><span class="icon-group"><i class="fa-solid fa-futbol"></i></span>Sports</a>
-        </li>
-        <li class="dropdown-item">
-          <a href=""><span class="icon-group"><i class="fa-solid fa-music"></i></span>Music</a>
-        </li>
-        <li class="dropdown-item">
-          <a href=""><span class="icon-group"><i class="fa-solid fa-plane"></i></span>Toys</a>
-        </li>
-        <li class="dropdown-item">
-          <a href=""><span class="icon-group"><i class="fa-solid fa-house"></i></span>Real Estate</a>
-        </li> *@
       </ul>
     </li>
     <li class="nav-item">
@@ -61,6 +40,18 @@
 
 @code {
     private Category[]? _categories;
+    private Dictionary<int, string> _categoryIcons = new Dictionary<int, string>()
+    {
+            [1] = "fa-solid fa-inbox",
+            [2] = "fa-solid fa-car",
+            [3] = "fa-solid fa-mobile",
+            [4] = "fa-solid fa-gamepad",
+            [5] = "fa-solid fa-shirt",
+            [6] = "fa-solid fa-futbol",
+            [7] = "fa-solid fa-music",
+            [8] = "fa-solid fa-plane",
+            [9] = "fa-solid fa-house",
+    };
 
     protected override void OnInitialized()
     {

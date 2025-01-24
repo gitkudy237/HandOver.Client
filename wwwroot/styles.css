@@ -417,6 +417,10 @@ a {
   font-weight: 400;
 }
 
+.dropdown-item a span {
+  text-transform: capitalize;
+}
+
 .nav-item:not(.dropable):hover,
 .dropdown-item:hover {
   background: var(--color-background-green);
