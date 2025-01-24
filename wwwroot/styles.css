@@ -349,6 +349,7 @@ a {
     font-size: 0.8rem;
     color: var(--color-primary);
     font-weight: bold;
+    text-transform: capitalize;
 }
 
 .details,
@@ -489,6 +490,7 @@ a {
 
 .main-content h2 {
   margin-bottom: 10px;
+  text-transform: capitalize;
 }
 
 .item-container {

@@ -1,4 +1,6 @@
-﻿<nav class="side-nav">
+﻿@inject CategoriesClient CategoriesClient
+
+<nav class="side-nav">
   <button class="btn btn--block btn--icon btn--primary">
     <i class="fa-solid fa-plus"></i> Add an article
   </button>
@@ -15,15 +17,17 @@
         <i class="fa-solid fa-caret-down"></i>
       </div>
       <ul class="dropdown-container .dropdown-active">
-        <li class="dropdown-item">
-          <a href=""><span class="icon-group"><i class="fa-solid fa-inbox"></i></span>Furnitures</a>
-        </li>
-        <li class="dropdown-item">
+         @foreach (var category in _categories!)
+                {
+                    <li class="dropdown-item">
+                       <a href=@GetCategoryRoute(category.Id)><span class="icon-group"><i class="fa-solid fa-inbox"></i></span>@category.Name</a>
+                    </li>
+                }
+        @* <li class="dropdown-item">
           <a href=""><span class="icon-group"><i class="fa-solid fa-car"></i></span>Vehicles</a>
         </li>
         <li class="dropdown-item">
-          <a href=""><span class="icon-group"
-              ><i class="fa-solid fa-mobile-screen-button"></i></span>Devices</a>
+          <a href=""><span class="icon-group"><i class="fa-solid fa-mobile-screen-button"></i></span>Devices</a>
         </li>
         <li class="dropdown-item">
           <a href=""><span class="icon-group"><i class="fa-solid fa-gamepad"></i></span>Entertainment</a>
@@ -42,7 +46,7 @@
         </li>
         <li class="dropdown-item">
           <a href=""><span class="icon-group"><i class="fa-solid fa-house"></i></span>Real Estate</a>
-        </li>
+        </li> *@
       </ul>
     </li>
     <li class="nav-item">
@@ -56,5 +60,18 @@
 </nav>
 
 @code {
+    private Category[]? _categories;
 
+    protected override void OnInitialized()
+    {
+        _categories = CategoriesClient.GetCategories();
+    }
+
+    public string GetCategoryRoute(int id)
+    {
+        var category = _categories!
+            .FirstOrDefault(c => c.Id == id);
+
+        return (category is null) ? "" : $"/category/{category.Name}";
+    }
 }

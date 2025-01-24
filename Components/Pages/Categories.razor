@@ -1,4 +1,4 @@
-﻿@page "/category/{id:int}"
+﻿@page "/category/{id}"
 
 @inject ItemsClient ItemsClient
 @inject CategoriesClient CategoriesClient
@@ -30,10 +30,10 @@
                              alt=@item.Name />
                     </div>
                     <div class="card-body flex">
+                        <p class="price">@item.Price  FCFA</p>
                         <h3 class="card-title">
                             @item.Name
                         </h3>
-                        <p class="price">@item.Price  FCFA</p>
                         <div class="item-category">
                             <span>@item.Category</span>
                         </div>
@@ -57,7 +57,7 @@
 
 @code {
     [Parameter]
-    public int? Id { get; set; }
+    public string? Id { get; set; }
 
     private List<ItemSummary>? _categoryItems = new();
     private Category[]? _categories;
@@ -74,8 +74,11 @@
         {
             _categories = CategoriesClient.GetCategories();
             _category = _categories
-                .FirstOrDefault(c => c.Id == Id.Value);
+                .FirstOrDefault(c => c.Name == Id.ToLower());
         }
+
+        else
+            return;
     }
 
 }
