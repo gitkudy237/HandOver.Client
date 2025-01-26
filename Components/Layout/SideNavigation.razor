@@ -6,7 +6,7 @@
   </button>
   <ul class="nav-list">
     <li class="nav-item">
-      <a href=""><span class="icon-group"><i class="fa-solid fa-bag-shopping"></i></span>All Articles</a>
+      <a href="/"><span class="icon-group"><i class="fa-solid fa-bag-shopping"></i></span>All Articles</a>
     </li>
     <li class="nav-item dropable" id="categoryy">
       <div class="dropable-heading">
@@ -20,7 +20,7 @@
          @foreach (var category in _categories!)
                 {
                     <li class="dropdown-item">
-                       <a href=@GetCategoryRoute(category.Id)>
+                       <a href=@GetCategoryRoute(category)>
                            <span class="icon-group"><i class=@_categoryIcons[category.Id]></i></span>
                            <span style="text-transform:capitalize">@category.Name</span>
                        </a>
@@ -42,15 +42,15 @@
     private Category[]? _categories;
     private Dictionary<int, string> _categoryIcons = new Dictionary<int, string>()
     {
-            [1] = "fa-solid fa-inbox",
-            [2] = "fa-solid fa-car",
-            [3] = "fa-solid fa-mobile",
-            [4] = "fa-solid fa-gamepad",
-            [5] = "fa-solid fa-shirt",
-            [6] = "fa-solid fa-futbol",
-            [7] = "fa-solid fa-music",
-            [8] = "fa-solid fa-plane",
-            [9] = "fa-solid fa-house",
+        [1] = "fa-solid fa-inbox",
+        [2] = "fa-solid fa-car",
+        [3] = "fa-solid fa-mobile",
+        [4] = "fa-solid fa-gamepad",
+        [5] = "fa-solid fa-shirt",
+        [6] = "fa-solid fa-futbol",
+        [7] = "fa-solid fa-music",
+        [8] = "fa-solid fa-plane",
+        [9] = "fa-solid fa-house",
     };
 
     protected override void OnInitialized()
@@ -58,11 +58,7 @@
         _categories = CategoriesClient.GetCategories();
     }
 
-    public string GetCategoryRoute(int id)
-    {
-        var category = _categories!
-            .FirstOrDefault(c => c.Id == id);
-
-        return (category is null) ? "" : $"/category/{category.Name}";
-    }
+    public string GetCategoryRoute(Category category)
+        => (category is null) ? "" : $"/category/{category.Name}";
+    
 }
