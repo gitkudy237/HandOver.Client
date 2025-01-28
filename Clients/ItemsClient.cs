@@ -22,6 +22,14 @@ public class ItemsClient
                 Location = "Yaounde",
                 Price = 10_500m,
                 Seller = "Afane237"
+            },
+            new() {
+                Name = "Dell Laptop",
+                Category = "devices",
+                ImageUrl = "",
+                Location = "Douala",
+                Price = 100_000m,
+                Seller = "Clovis23"
             }
 
         ];

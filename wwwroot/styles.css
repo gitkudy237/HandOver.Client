@@ -270,8 +270,6 @@ a {
   text-decoration: none;
 }
 
-
-
 /* Layout */
 
 /* Grids */
@@ -306,11 +304,11 @@ a {
   border-radius: 15px;
   overflow: hidden;
   cursor: pointer;
-  transition: box-shadow .2s ease;
+  transition: box-shadow 0.2s ease;
 }
 
 .card:hover {
-    box-shadow: 0 0 3px var(--color-background-green);
+  box-shadow: 0 0 3px var(--color-background-green);
 }
 
 .card:hover .card-header img {
@@ -348,10 +346,10 @@ a {
 }
 
 .item-category {
-    font-size: 0.8rem;
-    color: var(--color-primary);
-    font-weight: bold;
-    text-transform: capitalize;
+  font-size: 0.8rem;
+  color: var(--color-primary);
+  font-weight: bold;
+  text-transform: capitalize;
 }
 
 .details,
@@ -435,8 +433,6 @@ a {
 .dropdown-container {
   padding-left: 1rem;
 }
-
-
 
 .top-nav {
   justify-content: space-between;
