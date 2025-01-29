@@ -1,0 +1,82 @@
+﻿@page "/additem"
+
+@inject UsersClient UsersClient
+@inject ItemsConditionsClient ItemsConditionsClient
+@inject CategoriesClient CategoriesClient
+
+<PageTitle>New Item</PageTitle>
+
+@if (_categories is null ||
+_users is null ||
+_conditions is null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <EditForm Model="@_item" FormName="addItem">
+        <div>
+            <label for="name">Item name:</label>
+            <InputText class="input" type="text" id="name" placeholder="Enter item name..." @bind-Value="_item.Name" />
+        </div>
+        <div>
+            <label for="category">I:</label>
+            <InputSelect class="input" type="text" id="category" @bind-Value="_item.CategoryId">
+                <option value="">Select category</option>
+                @foreach (var category in _categories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </InputSelect>
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label for="">Item condition:</label>
+            <div>
+                <InputRadioGroup @bind-Value=_item.ConditionId>
+                    @foreach (var condition in _conditions)
+                    {
+                        <InputRadio Value="@condition.Id" id="@condition.Id" />
+                        <label for="@condition.Id">@condition.Condition</label>
+                    }
+                </InputRadioGroup>
+            </div>
+        </div>
+        <div>
+            <label for="price">Price:</label>
+            <InputNumber class="input" id="price" placeholder="Enter item price..." @bind-Value="_item.Price" />
+        </div>
+
+        <input class="btn btn--block btn--primary" type="submit" value="Add Item" />
+    </EditForm>
+}
+
+@code {
+    [SupplyParameterFromForm]
+    private ItemDetails _item { get; set; } = new()
+        {
+            Name = string.Empty,
+            Location = string.Empty,
+            PostedOn = DateTime.UtcNow
+        };
+
+    private List<User>? _users;
+    private Category[]? _categories;
+    private ItemCondition[]? _conditions;
+    private User? _seller;
+    private ItemCondition? _itemCondition;
+
+    protected override void OnInitialized()
+    {
+        _users = UsersClient.GetUsers();
+        _categories = CategoriesClient.GetCategories();
+        _conditions = ItemsConditionsClient.GetItemsConditions();
+
+        _seller = _users[RandomNumber(_users.Count)];
+    }
+
+    public int RandomNumber(int max)
+    {
+        Random random = new();
+        return random.Next(max);
+    }
+}
