@@ -237,6 +237,7 @@ select:focus {
 input[type="radio"],
 input[type="checkbox"] {
   accent-color: var(--color-primary);
+  margin-left: 10px;
 }
 
 .input-group {
@@ -510,7 +511,7 @@ a {
 
 .form {
   margin: auto;
-  width: 700px;
+  width: 600px;
   border: 1px solid var(--border-color);
   padding: 30px 60px;
   box-shadow: 0 0 5px lightgray;
@@ -535,6 +536,10 @@ select {
   display: block;
 }
 
+option {
+  text-transform: capitalize;
+}
+
 .form .input:focus {
   box-shadow: 0 0 3px var(--primary-color);
   transition: 0.2s ease;
@@ -542,4 +547,13 @@ select {
 
 .form .btn {
   margin-top: 20px;
+}
+
+.form label {
+  color: var(--color-grey-500);
+  margin-bottom: 10px;
+}
+
+.radio-container label {
+  color: var(--color-grey-800);
 }

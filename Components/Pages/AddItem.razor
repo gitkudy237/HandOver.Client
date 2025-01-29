@@ -37,7 +37,7 @@ else
         </div>
         <div style="margin-bottom: 15px;">
             <label for="">Item condition:</label>
-            <div>
+            <div class="radio-container">
                 <InputRadioGroup @bind-Value=_item.ConditionId>
                     @foreach (var condition in _conditions)
                     {
