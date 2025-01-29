@@ -13,7 +13,7 @@ public class ItemsClient
                 Category = "music",
                 ImageUrl = "Images/guitar.jpg",
                 Location = "Yaounde",
-                Price = 50_000m,
+                Price = 50_000,
                 Seller = "GeorgeHassan"
             },
             new() {
@@ -22,7 +22,7 @@ public class ItemsClient
                 Category = "furnitures",
                 ImageUrl = "Images/chair.jpg",
                 Location = "Yaounde",
-                Price = 10_500m,
+                Price = 10_500,
                 Seller = "Afane237"
             },
             new() {
@@ -31,7 +31,7 @@ public class ItemsClient
                 Category = "devices",
                 ImageUrl = "",
                 Location = "Douala",
-                Price = 100_000m,
+                Price = 100_000,
                 Seller = "Clovis23"
             }
 

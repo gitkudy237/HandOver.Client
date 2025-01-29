@@ -7,6 +7,6 @@ public class ItemSummary
     public required string Category { get; set; }
     public string? ImageUrl { get; set; }
     public required string Location { get; set; }
-    public decimal Price { get; set; }
+    public int Price { get; set; }
     public required string Seller { get; set; }
 }
