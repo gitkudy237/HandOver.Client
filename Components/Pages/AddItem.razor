@@ -14,14 +14,20 @@ _conditions is null)
 }
 else
 {
-    <EditForm Model="@_item" FormName="addItem">
+    <EditForm class="form" Model="@_item" FormName="addItem">
+        <h3>New item</h3>
         <div>
             <label for="name">Item name:</label>
             <InputText class="input" type="text" id="name" placeholder="Enter item name..." @bind-Value="_item.Name" />
         </div>
+        @* This is momentary *@
         <div>
-            <label for="category">I:</label>
-            <InputSelect class="input" type="text" id="category" @bind-Value="_item.CategoryId">
+            <label for="name">Image url:</label>
+            <InputText class="input" type="text" id="name" placeholder="Enter Image url..." @bind-Value="_item.Name" />
+        </div>
+        <div>
+            <label for="category">Item Condition:</label>
+            <InputSelect type="text" id="category" @bind-Value="_item.CategoryId">
                 <option value="">Select category</option>
                 @foreach (var category in _categories)
                 {
@@ -29,7 +35,7 @@ else
                 }
             </InputSelect>
         </div>
-        <div style="margin-bottom: 10px;">
+        <div style="margin-bottom: 15px;">
             <label for="">Item condition:</label>
             <div>
                 <InputRadioGroup @bind-Value=_item.ConditionId>

@@ -208,6 +208,8 @@ select {
 select {
   padding: initial;
   padding-inline: 1rem;
+  display: block;
+  width: 100%;
 }
 
 select > option {
@@ -256,6 +258,11 @@ input[type="checkbox"] {
 
 .input-group .btn {
   border-radius: 0;
+}
+
+textarea {
+  height: 100px !important;
+  border-radius: 10px !important;
 }
 
 /* Lists */
@@ -426,10 +433,6 @@ a {
   background: var(--color-background-green);
 }
 
-#category {
-  padding-top: 15px;
-}
-
 .dropdown-container {
   padding-left: 1rem;
 }
@@ -501,4 +504,42 @@ a {
   grid-template-columns: repeat(3, 1fr);
   place-items: center;
   row-gap: 20px;
+}
+
+/* Forms */
+
+.form {
+  margin: auto;
+  width: 700px;
+  border: 1px solid var(--border-color);
+  padding: 30px 60px;
+  box-shadow: 0 0 5px lightgray;
+  border-radius: 10px;
+}
+
+.form h3 {
+  text-align: center;
+}
+
+.form .input,
+.form .btn,
+.form select,
+.form textarea {
+  width: 100%;
+  display: block;
+  margin-bottom: 15px;
+  height: 40px;
+}
+
+select {
+  display: block;
+}
+
+.form .input:focus {
+  box-shadow: 0 0 3px var(--primary-color);
+  transition: 0.2s ease;
+}
+
+.form .btn {
+  margin-top: 20px;
 }
