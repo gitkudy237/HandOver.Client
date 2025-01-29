@@ -264,6 +264,7 @@ input[type="checkbox"] {
 textarea {
   height: 100px !important;
   border-radius: 10px !important;
+  resize: none;
 }
 
 /* Lists */

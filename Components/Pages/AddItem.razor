@@ -36,7 +36,7 @@
                     @bind-Value="_item.Location" />
             </div>
             <div>
-                <label for="category">Item Condition:</label>
+                <label for="category">Category:</label>
                 <InputSelect type="text" id="category" @bind-Value="_item.CategoryId">
                     <option value="">Select category</option>
                     @foreach (var category in _categories)
@@ -59,7 +59,15 @@
             </div>
             <div>
                 <label for="price">Price:</label>
-                <InputNumber class="input" id="price" placeholder="Enter item price..." @bind-Value="_item.Price" />
+                <InputNumber class="input" id="price" @bind-Value="_item.Price" />
+            </div>
+            <div>
+                <label for="price">Quantity:</label>
+                <InputNumber class="input" id="price" @bind-Value="_item.Quantity" />
+            </div>
+            <div>
+                <label for="description">Description:</label>
+                <InputTextArea class="input" id="description" @bind-Value="_item.Description" />
             </div>
 
             <input class="btn btn--block btn--primary" type="submit" value="Add Item" />
@@ -75,7 +83,8 @@
         {
             Name = string.Empty,
             Location = string.Empty,
-            PostedOn = DateTime.UtcNow
+            PostedOn = DateTime.UtcNow,
+            Quantity = 1
         };
 
     private List<User>? _users;
