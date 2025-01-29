@@ -8,6 +8,7 @@ public class ItemsClient
         [
 
             new() {
+                Id = 1,
                 Name = "Yamaha Acoustic Guitar",
                 Category = "music",
                 ImageUrl = "Images/guitar.jpg",
@@ -16,6 +17,7 @@ public class ItemsClient
                 Seller = "GeorgeHassan"
             },
             new() {
+                Id = 2,
                 Name = "Wooden Chair",
                 Category = "furnitures",
                 ImageUrl = "Images/chair.jpg",
@@ -24,6 +26,7 @@ public class ItemsClient
                 Seller = "Afane237"
             },
             new() {
+                Id = 3,
                 Name = "Dell Laptop",
                 Category = "devices",
                 ImageUrl = "",
