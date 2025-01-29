@@ -7,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents();
 builder.Services.AddSingleton<ItemsClient>();
 builder.Services.AddSingleton<CategoriesClient>();
+builder.Services.AddSingleton<UsersClient>();
+builder.Services.AddSingleton<ItemsConditionsClient>();
 
 var app = builder.Build();
 
