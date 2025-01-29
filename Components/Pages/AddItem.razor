@@ -8,60 +8,66 @@
 
 <PageTitle>New Item</PageTitle>
 
-@if (_categories is null ||
-_users is null ||
-_conditions is null)
-{
-    <p>Loading...</p>
-}
-else
-{
-    <EditForm class="form" Model="@_item" FormName="addItem" OnSubmit="HandleSubmit">
-        <h3>New item</h3>
-        <div>
-            <label for="name">Item name:</label>
-            <InputText class="input" type="text" id="name" placeholder="Enter item name..." @bind-Value="_item.Name" />
-        </div>
-        @* This is momentary *@
-        <div>
-            <label for="image">Image url:</label>
-            <InputText class="input" type="text" id="image" placeholder="Enter Image url..." @bind-Value="_item.ImageUrl" />
-        </div>
-        <div>
-            <label for="location">Location:</label>
-            <InputText class="input" type="text" id="location" placeholder="Enter location..."
-                @bind-Value="_item.Location" />
-        </div>
-        <div>
-            <label for="category">Item Condition:</label>
-            <InputSelect type="text" id="category" @bind-Value="_item.CategoryId">
-                <option value="">Select category</option>
-                @foreach (var category in _categories)
-                {
-                    <option value="@category.Id">@category.Name</option>
-                }
-            </InputSelect>
-        </div>
-        <div style="margin-bottom: 15px;">
-            <label for="">Item condition:</label>
-            <div class="radio-container">
-                <InputRadioGroup @bind-Value=_item.ConditionId>
-                    @foreach (var condition in _conditions)
-                    {
-                        <InputRadio Value="@condition.Id" id="@condition.Id" />
-                        <label for="@condition.Id">@condition.Condition</label>
-                    }
-                </InputRadioGroup>
+<div class="main-content">
+    <h2>New Item</h2>
+    @if (_categories is null ||
+    _users is null ||
+    _conditions is null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        <EditForm class="form" Model="@_item" FormName="addItem" OnSubmit="HandleSubmit">
+            <h3>Add New item</h3>
+            <div>
+                <label for="name">Item name:</label>
+                <InputText class="input" type="text" id="name" placeholder="Enter item name..." @bind-Value="_item.Name" />
             </div>
-        </div>
-        <div>
-            <label for="price">Price:</label>
-            <InputNumber class="input" id="price" placeholder="Enter item price..." @bind-Value="_item.Price" />
-        </div>
+            @* This is momentary *@
+            <div>
+                <label for="image">Image url:</label>
+                <InputText class="input" type="text" id="image" placeholder="Enter Image url..."
+                    @bind-Value="_item.ImageUrl" />
+            </div>
+            <div>
+                <label for="location">Location:</label>
+                <InputText class="input" type="text" id="location" placeholder="Enter location..."
+                    @bind-Value="_item.Location" />
+            </div>
+            <div>
+                <label for="category">Item Condition:</label>
+                <InputSelect type="text" id="category" @bind-Value="_item.CategoryId">
+                    <option value="">Select category</option>
+                    @foreach (var category in _categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </InputSelect>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label for="">Item condition:</label>
+                <div class="radio-container">
+                    <InputRadioGroup @bind-Value=_item.ConditionId>
+                        @foreach (var condition in _conditions)
+                        {
+                            <InputRadio Value="@condition.Id" id="@condition.Id" />
+                            <label for="@condition.Id">@condition.Condition</label>
+                        }
+                    </InputRadioGroup>
+                </div>
+            </div>
+            <div>
+                <label for="price">Price:</label>
+                <InputNumber class="input" id="price" placeholder="Enter item price..." @bind-Value="_item.Price" />
+            </div>
 
-        <input class="btn btn--block btn--primary" type="submit" value="Add Item" />
-    </EditForm>
-}
+            <input class="btn btn--block btn--primary" type="submit" value="Add Item" />
+        </EditForm>
+    }
+</div>
+
+
 
 @code {
     [SupplyParameterFromForm]
@@ -76,7 +82,6 @@ else
     private Category[]? _categories;
     private ItemCondition[]? _conditions;
     private User? _seller;
-    private ItemCondition? _itemCondition;
 
     protected override void OnInitialized()
     {
