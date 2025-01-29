@@ -6,6 +6,7 @@ public class ItemDetails
 {
     public int Id { get; set; }
     public required string Name { get; set; }
+    public string? ImageUrl { get; set; }
     public int CategoryId { get; set; }
     public int ConditionId { get; set; }
     public required string Location { get; set; }

@@ -3,6 +3,8 @@
 @inject UsersClient UsersClient
 @inject ItemsConditionsClient ItemsConditionsClient
 @inject CategoriesClient CategoriesClient
+@inject ItemsClient ItemsClient
+@inject NavigationManager NavigationManager
 
 <PageTitle>New Item</PageTitle>
 
@@ -14,7 +16,7 @@ _conditions is null)
 }
 else
 {
-    <EditForm class="form" Model="@_item" FormName="addItem">
+    <EditForm class="form" Model="@_item" FormName="addItem" OnSubmit="HandleSubmit">
         <h3>New item</h3>
         <div>
             <label for="name">Item name:</label>
@@ -22,8 +24,13 @@ else
         </div>
         @* This is momentary *@
         <div>
-            <label for="name">Image url:</label>
-            <InputText class="input" type="text" id="name" placeholder="Enter Image url..." @bind-Value="_item.Name" />
+            <label for="image">Image url:</label>
+            <InputText class="input" type="text" id="image" placeholder="Enter Image url..." @bind-Value="_item.ImageUrl" />
+        </div>
+        <div>
+            <label for="location">Location:</label>
+            <InputText class="input" type="text" id="location" placeholder="Enter location..."
+                @bind-Value="_item.Location" />
         </div>
         <div>
             <label for="category">Item Condition:</label>
@@ -80,9 +87,20 @@ else
         _seller = _users[RandomNumber(_users.Count)];
     }
 
+    protected override void OnParametersSet()
+    {
+        _item.SellerId = _seller!.Id;
+    }
+
     public int RandomNumber(int max)
     {
         Random random = new();
         return random.Next(max);
+    }
+
+    public void HandleSubmit()
+    {
+        ItemsClient.AddItem(_item);
+        NavigationManager.NavigateTo("/");
     }
 }

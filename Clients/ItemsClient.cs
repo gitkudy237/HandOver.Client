@@ -37,6 +37,9 @@ public class ItemsClient
 
         ];
 
+    private readonly List<User> _users = new UsersClient().GetUsers();
+    private readonly Category[] _categories = new CategoriesClient().GetCategories();
+
     public ItemSummary[] GetItems()
     {
         return [.. _items];
@@ -46,5 +49,23 @@ public class ItemsClient
     {
         var items = _items.Where(i => i.Category == category).ToList();
         return items;
+    }
+
+    public void AddItem(ItemDetails item)
+    {
+        var seller = _users.First(u => u.Id == item.SellerId);
+        var category = _categories.First(c => c.Id == item.CategoryId);
+        var itemSummary = new ItemSummary
+        {
+            Id = _items.Count + 1,
+            Name = item.Name,
+            Category = category.Name,
+            ImageUrl = item.ImageUrl,
+            Location = item.Location,
+            Price = item.Price,
+            Seller = seller.UserName,
+        };
+
+        _items.Add(itemSummary);
     }
 }
