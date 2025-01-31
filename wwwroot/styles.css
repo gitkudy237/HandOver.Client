@@ -277,6 +277,7 @@ ul {
 
 a {
   text-decoration: none;
+  color: currentColor;
 }
 
 /* Layout */
@@ -324,6 +325,10 @@ a {
   transform: scale(1.05);
 }
 
+.card:hover .card-title {
+  color: var(--color-primary);
+}
+
 .card-header {
   height: 210px;
 }
@@ -346,6 +351,7 @@ a {
   font-size: medium;
   line-height: 1.1;
   color: var(--color-grey-700);
+  transition: color 0.2s ease;
 }
 
 .price {
@@ -363,21 +369,41 @@ a {
 
 .details,
 .location,
-.seller {
+.seller,
+.card-actions,
+.card-actions a {
   display: flex;
 }
 
-.details {
+.details,
+.card-actions {
   justify-content: flex-start;
   gap: 20px;
 }
 
+.location,
 .seller,
-.location {
+.card-actions a {
   justify-content: center;
   align-items: center;
   gap: 5px;
   font-size: small;
+}
+
+.info {
+  color: var(--color-primary);
+}
+
+.edit {
+  color: var(--color-warning);
+}
+
+.delete {
+  color: var(--color-error);
+}
+
+.card-actions a:hover {
+  text-decoration: underline;
 }
 
 /* Navigation */
