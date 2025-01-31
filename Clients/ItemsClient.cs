@@ -51,6 +51,10 @@ public class ItemsClient
         return items;
     }
 
+    public List<ItemSummary> GetItems(User user)
+        => _items.Where(i => i.Seller.Equals(user.UserName, StringComparison.CurrentCultureIgnoreCase))
+                .ToList();
+
     public void AddItem(ItemDetails item)
     {
         var seller = _users.First(u => u.Id == item.SellerId);
