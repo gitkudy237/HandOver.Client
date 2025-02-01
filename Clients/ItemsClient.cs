@@ -4,7 +4,7 @@ namespace HandOver.Client.Clients;
 
 public class ItemsClient
 {
-    private readonly List<ItemSummary> _items =
+    private readonly List<ItemSummary> _itemsSummaries =
         [
 
             new() {
@@ -37,31 +37,43 @@ public class ItemsClient
 
         ];
 
+    private readonly List<ItemDetails> _itemsDetails = new();
+
     private readonly List<User> _users = new UsersClient().GetUsers();
     private readonly Category[] _categories = new CategoriesClient().GetCategories();
 
     public ItemSummary[] GetItems()
     {
-        return [.. _items];
+        return [.. _itemsSummaries];
     }
 
     public List<ItemSummary> GetItems(string category)
     {
-        var items = _items.Where(i => i.Category == category).ToList();
+        var items = _itemsSummaries.Where(i => i.Category == category).ToList();
         return items;
     }
 
     public List<ItemSummary> GetItems(User user)
-        => _items.Where(i => i.Seller.Equals(user.UserName, StringComparison.CurrentCultureIgnoreCase))
+        => _itemsSummaries.Where(i => i.Seller.Equals(user.UserName, StringComparison.CurrentCultureIgnoreCase))
                 .ToList();
 
     public void AddItem(ItemDetails item)
     {
+        _itemsSummaries.Add(ToItemSummary(item));
+        _itemsDetails.Add(item);
+    }
+
+    public ItemSummary ToItemSummary(ItemDetails item)
+    {
+        ArgumentNullException.ThrowIfNull(item);
+
         var seller = _users.First(u => u.Id == item.SellerId);
         var category = _categories.First(c => c.Id == item.CategoryId);
-        var itemSummary = new ItemSummary
+        item.Id = _itemsSummaries.Count + 1;
+
+        return new ItemSummary
         {
-            Id = _items.Count + 1,
+            Id = item.Id,
             Name = item.Name,
             Category = category.Name,
             ImageUrl = item.ImageUrl,
@@ -69,7 +81,5 @@ public class ItemsClient
             Price = item.Price,
             Seller = seller.UserName,
         };
-
-        _items.Add(itemSummary);
     }
 }
