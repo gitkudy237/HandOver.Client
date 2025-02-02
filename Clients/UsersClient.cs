@@ -9,8 +9,8 @@ public class UsersClient
     [
         new() {Id = 1, UserName = "Kudy123"},
         new() {Id = 2, UserName = "Deffo.34"},
-        new() {Id = 1, UserName = "Clovis_bk"},
-        new() {Id = 1, UserName = "Ryan-762"},
+        new() {Id = 3, UserName = "Clovis_bk"},
+        new() {Id = 4, UserName = "Ryan-762"},
     ];
 
     public List<User> GetUsers()

@@ -1,4 +1,5 @@
 ﻿@page "/additem"
+@page "/edit/{id:int}"
 
 @inject UsersClient UsersClient
 @inject ItemsConditionsClient ItemsConditionsClient
@@ -6,10 +7,10 @@
 @inject ItemsClient ItemsClient
 @inject NavigationManager NavigationManager
 
-<PageTitle>New Item</PageTitle>
+<PageTitle>@_heading</PageTitle>
 
 <div class="main-content">
-    <h2>New Item</h2>
+    <h2>@_heading</h2>
     @if (_categories is null ||
     _users is null ||
     _conditions is null)
@@ -19,7 +20,7 @@
     else
     {
         <EditForm class="form" Model="@_item" FormName="addItem" OnSubmit="HandleSubmit">
-            <h3>Add New item</h3>
+            <h3>@_title</h3>
             <div>
                 <label for="name">Item name:</label>
                 <InputText class="input" type="text" id="name" placeholder="Enter item name..." @bind-Value="_item.Name" />
@@ -70,7 +71,7 @@
                 <InputTextArea class="input" id="description" @bind-Value="_item.Description" />
             </div>
 
-            <input class="btn btn--block btn--primary" type="submit" value="Add Item" />
+            <input class="btn btn--block btn--primary" type="submit" value="@_actionText" />
         </EditForm>
     }
 </div>
@@ -78,19 +79,22 @@
 
 
 @code {
-    [SupplyParameterFromForm]
-    private ItemDetails _item { get; set; } = new()
-        {
-            Name = string.Empty,
-            Location = string.Empty,
-            PostedOn = DateTime.UtcNow,
-            Quantity = 1
-        };
+    [Parameter]
+    public int? Id { get; set; }
 
-    private List<User>? _users;
+    [SupplyParameterFromForm]
+    private ItemDetails? _item { get; set; }
+
+
+    private List<User> _users = new();
     private Category[]? _categories;
     private ItemCondition[]? _conditions;
-    private User? _seller;
+    @* private User _seller = null!; *@
+    private DateTime _postedOn;
+    private int _sellerId;
+    private string _title = "Add New Item";
+    private string _heading = "Add new";
+    private string _actionText = "Submit";
 
     protected override void OnInitialized()
     {
@@ -98,12 +102,44 @@
         _categories = CategoriesClient.GetCategories();
         _conditions = ItemsConditionsClient.GetItemsConditions();
 
-        _seller = _users[RandomNumber(_users.Count)];
+
+
+        // For now the seller is generated randomly from the list of users
     }
 
     protected override void OnParametersSet()
     {
-        _item.SellerId = _seller!.Id;
+        // if item has been submitted
+        if (_item is not null)
+        {
+            return;
+        }
+
+        // if item exists
+        if (Id is not null)
+        {
+            _item = ItemsClient.GetItemDetails(Id.Value);
+            ArgumentNullException.ThrowIfNull(_item);
+
+            _postedOn = _item.PostedOn;
+            _sellerId = _item.SellerId;
+            _heading = "Edit item";
+            _title = $"Edit {_item.Name}";
+            _actionText = "Confirm";
+        }
+
+        //We are creating the game
+        else
+        {
+            @* _seller = _users[RandomNumber(_users.Count)]; *@
+            _item = new()
+                {
+                    Name = string.Empty,
+                    Location = string.Empty,
+                    PostedOn = DateTime.UtcNow,
+                    Quantity = 1,
+                };
+        }
     }
 
     public int RandomNumber(int max)
@@ -114,7 +150,22 @@
 
     public void HandleSubmit()
     {
-        ItemsClient.AddItem(_item);
+        ArgumentNullException.ThrowIfNull(_item);
+
+        if (Id is null)
+        {
+            _item.SellerId = 1;
+            _item.PostedOn = DateTime.UtcNow;
+            ItemsClient.AddItem(_item);
+        }
+        else
+        {
+            _item.Id = Id.Value;
+            _item.PostedOn = _postedOn;
+            _item.SellerId = 1;
+            ItemsClient.UpdateItem(_item);
+        }
+
         NavigationManager.NavigateTo("/");
     }
 }

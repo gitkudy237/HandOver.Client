@@ -529,7 +529,7 @@ a {
 }
 
 .item-container {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   place-items: center;
   row-gap: 20px;
 }

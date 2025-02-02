@@ -29,7 +29,7 @@ public class ItemsClient
                 Id = 3,
                 Name = "Dell Laptop",
                 Category = "devices",
-                ImageUrl = "",
+                ImageUrl = "Images/laptop.jpg",
                 Location = "Douala",
                 Price = 100_000,
                 Seller = "Clovis23"
@@ -52,6 +52,9 @@ public class ItemsClient
         var items = _itemsSummaries.Where(i => i.Category == category).ToList();
         return items;
     }
+
+    public ItemDetails? GetItemDetails(int id)
+        => _itemsDetails.FirstOrDefault(i => i.Id == id);
 
     public List<ItemSummary> GetItems(User user)
         => _itemsSummaries.Where(i => i.Seller.Equals(user.UserName, StringComparison.CurrentCultureIgnoreCase))
@@ -81,5 +84,19 @@ public class ItemsClient
             Price = item.Price,
             Seller = seller.UserName,
         };
+    }
+
+    public void UpdateItem(ItemDetails item)
+    {
+        var itemDetails = _itemsDetails.FirstOrDefault(i => i.Id == item.Id);
+        ArgumentNullException.ThrowIfNull(itemDetails);
+        var detailsIndex = _itemsDetails.IndexOf(itemDetails);
+
+        var itemSummary = _itemsSummaries.FirstOrDefault(i => i.Id == item.Id);
+        ArgumentNullException.ThrowIfNull(itemSummary);
+        var summaryIndex = _itemsSummaries.IndexOf(itemSummary);
+
+        _itemsDetails[detailsIndex] = item;
+        _itemsSummaries[summaryIndex] = ToItemSummary(item);
     }
 }
