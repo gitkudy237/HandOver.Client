@@ -1,5 +1,6 @@
 using HandOver.Client.Clients;
 using HandOver.Client.Components;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ builder.Services.AddSingleton<ItemsClient>();
 builder.Services.AddSingleton<CategoriesClient>();
 builder.Services.AddSingleton<UsersClient>();
 builder.Services.AddSingleton<ItemsConditionsClient>();
+builder.Services.AddMudServices();
 
 var app = builder.Build();
 

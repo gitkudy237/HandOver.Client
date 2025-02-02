@@ -108,6 +108,8 @@ h3 {
   color: var(--color-primary);
 }
 
+
+
 /* Badges */
 
 .badge {
@@ -184,6 +186,10 @@ h3 {
   justify-content: center;
   align-items: center;
   transition: background 0.15s ease;
+}
+
+.icon-group--white {
+    background: #fff;
 }
 
 .top-nav .icon-group:hover {
@@ -583,4 +589,81 @@ option {
 
 .radio-container label {
   color: var(--color-grey-800);
+}
+
+
+/* Item details and carousel */
+
+.details-container {
+    grid-template-columns: 1fr minmax(400px, 20%);
+    grid-template-areas: "carousel item-details";
+    height: 100vh;
+}
+
+.carousel-container {
+    background-color: #557754;
+    grid-area: carousel;
+}
+
+.info-section {
+    grid-area: item-details;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: .5rem 1rem;
+    & .section
+
+{
+    border-bottom: 1px solid #e4e4e4;
+    padding-top: 1.2rem;
+    padding-bottom: 1.5rem;
+}
+
+}
+
+.section-heading {
+    margin-bottom: 0.8rem;
+}
+
+.section p {
+    line-height: 1.6;
+    padding-left: 15px;
+}
+
+.quick-action-section {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.details-section p,
+#shipment p {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 10px;
+}
+
+#item-price {
+    font-weight: bold;
+    font-size: large;
+}
+
+#shipment {
+    color: var(--color-grey-400);
+    font-size: small;
+}
+
+#seller-profile {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 15px;
+    /* column-gap: 20px; */
+
+    & #seller-name
+
+{
+    font-weight: 500;
+}
 }
