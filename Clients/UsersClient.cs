@@ -15,4 +15,7 @@ public class UsersClient
 
     public List<User> GetUsers()
         => _users;
+
+    public User? GetUser(int id)
+        => _users.FirstOrDefault(u => u.Id == id);
 }

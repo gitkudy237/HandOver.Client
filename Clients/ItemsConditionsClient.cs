@@ -15,4 +15,7 @@ public class ItemsConditionsClient
 
     public ItemCondition[] GetItemsConditions()
         => _conditions;
+    
+    public ItemCondition? GetItemCondition(int id)
+        => _conditions.FirstOrDefault(c => c.Id == id);
 }

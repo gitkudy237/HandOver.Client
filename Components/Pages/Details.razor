@@ -1,14 +1,29 @@
-﻿@page "/details"
+﻿@page "/details/{id:int}"
+
+@inject UsersClient UsersClient
+@inject ItemsConditionsClient ItemsConditionsClient
+@inject CategoriesClient CategoriesClient
+@inject ItemsClient ItemsClient
+@inject NavigationManager NavigationManager
+
 
 <PageTitle>Item | Details</PageTitle>
 
-<div class="main-content">
+@if (_item is null)
+{
+  <p>Loading...</p>
+}
+else
+{
+  <div class="main-content">
     <div class="details-container grid">
-      <section class="carousel-container">Carousel section</section>
+      <section class="carousel-container">
+        <ImageCarousel Images="@_images" />
+      </section>
       <section class="info-section">
         <div class="section summary-section">
-          <h2 id="item-name">Toyota Yaris 2008</h2>
-          <p id="item-price">1,500,000 FCFA</p>
+          <h2 id="item-name">@_item.Name</h2>
+          <p id="item-price">@_item.Price.ToString("N0") FCFA</p>
           <div id="shipment">
             <p>
               <span class="icon-group icon-group--white"><i class="fa-solid fa-door-open"></i></span>
@@ -28,32 +43,77 @@
         </div>
         <div class="section details-section">
           <h3 class="section-heading">Details</h3>
-          <p id="item-category">
-            <span class="icon-group icon-group--white"><i class="fa-solid fa-car-rear"></i></span>
-            <span>Vehicles</span>
-          </p>
-          <p id="item-condition">
-            <span class="icon-group icon-group--white"><i class="fa-solid fa-stethoscope"></i></span>
-            <span>Fairly used</span>
-          </p>
-          <p id="item-location">
-            <span class="icon-group icon-group--white"><i class="fa-solid fa-location-dot"></i></span><span>Yaounde</span>
-          </p>
-          <p id="item-post-date">
-            <span class="icon-group icon-group--white"><i class="fa-solid fa-calendar-days"></i></span>
-            <span>Posted 1 week ago</span>
-          </p>
+          @if (_category is null || _condition is null)
+          {
+            // spiner or loading skeleton
+            <p>Loading...</p>
+          }
+          else
+          {
+            <p id="item-category">
+              <span class="icon-group icon-group--white"><i class="fa-solid fa-car-rear"></i></span>
+              <span>@_category.Name</span>
+            </p>
+            <p id="item-condition">
+              <span class="icon-group icon-group--white"><i class="fa-solid fa-stethoscope"></i></span>
+              <span>@_condition.Condition</span>
+            </p>
+            <p id="item-location">
+              <span class="icon-group icon-group--white"><i class="fa-solid fa-location-dot"></i></span><span>@_item.Location</span>
+            </p>
+            <p id="item-post-date">
+              <span class="icon-group icon-group--white"><i class="fa-solid fa-calendar-days"></i></span>
+              <span>@_item.PostedOn.ToShortDateString()</span>
+            </p>
+          }
+          
         </div>
         <div class="section seller-section">
           <h3 class="section-heading">Seller's information</h3>
-          <div id="seller-profile">
-            <i class="icon--large fa-solid fa-circle-user"></i>
-            <p id="seller-name">Deffo.34</p>
-          </div>
+          @if (_seller is null)
+          {
+            // spinner or load skeleton
+            <p>Loading...</p>
+          }
+          else
+          {
+            <div id="seller-profile">
+              <i class="icon--large fa-solid fa-circle-user"></i>
+              <p id="seller-name">@_seller.UserName</p>
+            </div>
+          }
         </div>
       </section>
     </div>
-</div>
+  </div>
+}
+
+
 @code {
+  [Parameter]
+  public int? Id {get; set;}
+
+  private ItemDetails? _item;
+  private ItemCondition? _condition;
+  private Category? _category;
+  private User? _seller;
+  private List<string> _images = new();
+
+  protected override void OnParametersSet()
+  {
+    if (Id is not null)
+    {
+      _item = ItemsClient.GetItemDetails(Id.Value);
+      ArgumentNullException.ThrowIfNull(_item);
+
+      _category = CategoriesClient.GetCategory(_item.CategoryId);
+      _condition = ItemsConditionsClient.GetItemCondition(_item.ConditionId);
+      _seller = UsersClient.GetUser(_item.SellerId);
+      _images.Add(_item.ImageUrl!);
+
+    }
+
+
+  }
 
 }

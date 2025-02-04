@@ -22,5 +22,8 @@ public class CategoriesClient
         return [.. _categories];
     }
 
+    public Category? GetCategory(int id)
+        => _categories.FirstOrDefault(c => c.Id == id);
+
     
 }
