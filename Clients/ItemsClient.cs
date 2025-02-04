@@ -72,7 +72,6 @@ public class ItemsClient
 
         var seller = _users.First(u => u.Id == item.SellerId);
         var category = _categories.First(c => c.Id == item.CategoryId);
-        item.Id = _itemsSummaries.Count + 1;
 
         return new ItemSummary
         {
