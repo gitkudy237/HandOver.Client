@@ -62,6 +62,7 @@ public class ItemsClient
 
     public void AddItem(ItemDetails item)
     {
+        item.Id = _itemsSummaries.Count + 1;
         _itemsSummaries.Add(ToItemSummary(item));
         _itemsDetails.Add(item);
     }
