@@ -8,12 +8,12 @@
   </a>
   <ul class="nav-list">
     <li class="nav-item">
-      <a href="/"><span class="icon-group"><i class="fa-solid fa-bag-shopping"></i></span>All Articles</a>
+      <a href="/"><span class="icon-group icon-group--orange"><i class="fa-solid fa-bag-shopping"></i></span>All Articles</a>
     </li>
     <li class="nav-item dropable" id="categoryy">
       <div class="dropable-heading">
         <span class="heading-content">
-          <span class="icon-group"><i class="fa-solid fa-icons"></i></span>
+          <span class="icon-group icon-group--bluegreen"><i class="fa-solid fa-icons"></i></span>
           <span>Categories</span>
         </span>
         <i class="fa-solid fa-caret-down"></i>
@@ -23,7 +23,7 @@
         {
           <li class="dropdown-item">
             <a href=@GetCategoryRoute(category)>
-              <span class="icon-group"><i class=@_categoryIcons[category.Id]></i></span>
+              <span class="@_icongroupColors[category.Id]"><i class=@_categoryIcons[category.Id]></i></span>
               <span style="text-transform:capitalize">@category.Name</span>
             </a>
           </li>
@@ -31,10 +31,10 @@
       </ul>
     </li>
     <li class="nav-item">
-      <a href=""><span class="icon-group"><i class="fa-solid fa-medal"></i></span>Recommendations</a>
+      <a href=""><span class="icon-group icon-group--green"><i class="fa-solid fa-medal"></i></span>Recommendations</a>
     </li>
     <li class="nav-item">
-      <a href="listings/1"><span class="icon-group"><i class="fa-solid fa-tag"></i></span>My
+      <a href="listings/1"><span class="icon-group icon-group--error"><i class="fa-solid fa-tag"></i></span>My
         Listings</a>
     </li>
   </ul>
@@ -53,6 +53,19 @@
       [7] = "fa-solid fa-music",
       [8] = "fa-solid fa-plane",
       [9] = "fa-solid fa-house",
+    };
+  
+  private Dictionary<int, string> _icongroupColors = new Dictionary<int, string>()
+    {
+      [1] = "icon-group icon-group--green",
+      [2] = "icon-group icon-group--kaki",
+      [3] = "icon-group icon-group--kaki",
+      [4] = "icon-group icon-group--deepblue",
+      [5] = "icon-group icon-group--green",
+      [6] = "icon-group icon-group--error",
+      [7] = "icon-group icon-group--orange",
+      [8] = "icon-group icon-group--green",
+      [9] = "icon-group icon-group--kaki",
     };
 
   protected override void OnInitialized()
