@@ -112,6 +112,15 @@ h3 {
   color: var(--color-primary);
 }
 
+.btn--error {
+  background: var(--color-error);
+  color: var(--color-white);
+
+  &:hover {
+    background-color: #772020;
+  }
+}
+
 .btn--icon i {
     margin-right: 5px;
 }

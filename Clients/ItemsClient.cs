@@ -99,4 +99,13 @@ public class ItemsClient
         _itemsDetails[detailsIndex] = item;
         _itemsSummaries[summaryIndex] = ToItemSummary(item);
     }
+
+    public void DeleteItem(int id)
+    {
+        var item = GetItemDetails(id);
+        ArgumentNullException.ThrowIfNull(item);
+
+        _itemsSummaries.RemoveAll(i => i.Id == id);
+        _itemsDetails.RemoveAll(i => i.Id == id);
+    }
 }
