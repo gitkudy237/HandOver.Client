@@ -1,5 +1,5 @@
 ﻿@page "/"
-
+@rendermode InteractiveServer
 @inject ItemsClient ItemsClient
 
 <PageTitle>Home</PageTitle>
@@ -33,7 +33,7 @@
                                     <span>@item.Location</span>
                                 </p>
                                 <p class="seller">
-                                    <i class="fa-solid fa-user icon--warning"></i><span>@item.Seller</span>
+                                    <i class="fa-solid fa-user-circle icon--warning"></i><span>@item.Seller</span>
                                 </p>
                             </div>
                         </div>
