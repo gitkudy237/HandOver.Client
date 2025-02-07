@@ -41,6 +41,17 @@ else
             <span>Save</span>
           </button>
         </div>
+        @if (string.IsNullOrWhiteSpace(_item.Description))
+        {
+
+        }
+        else
+        {
+          <div class="section description-section">
+            <h3 class="section-heading">Description</h3>
+            <p id="item-description">@_item.Description</p>
+          </div>
+        }
         <div class="section details-section">
           <h3 class="section-heading">Details</h3>
           @if (_category is null || _condition is null)
