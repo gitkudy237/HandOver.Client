@@ -47,8 +47,9 @@ public class ItemsClient
         return [.. _itemsSummaries];
     }
 
-    public List<ItemSummary> GetItems(string category)
+    public List<ItemSummary> GetItems(string? category)
     {
+        ArgumentNullException.ThrowIfNull(category);
         var items = _itemsSummaries.Where(i => i.Category == category).ToList();
         return items;
     }

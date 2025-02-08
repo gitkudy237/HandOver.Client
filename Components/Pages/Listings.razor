@@ -55,7 +55,7 @@
 
                 }
             </div>
-            <DeleteItem @ref="_deleteItem" ConfirmationResult="OnConfirmationResult"/>
+            <DeleteItem @ref="_deleteItemModal" ConfirmationResult="OnConfirmationResult"/>
 
         }
     }
@@ -69,8 +69,8 @@
     private List<User>? _users;
     private User? _user;
 
-    private DeleteItem? _deleteItem;
-    private int _currentItem;
+    private DeleteItem? _deleteItemModal;
+    private int _currentItemId;
 
     protected override void OnInitialized()
     {
@@ -85,8 +85,8 @@
 
     private void ShowModal(int id)
     {
-        _currentItem = id;
-        _deleteItem?.Show(id);
+        _currentItemId = id;
+        _deleteItemModal?.Show(id);
     }
 
     private void OnConfirmationResult(bool confirmed)
@@ -94,13 +94,13 @@
         if (confirmed)
         {
             // Handle the delete action
-            ItemsClient.DeleteItem(_currentItem);
+            ItemsClient.DeleteItem(_currentItemId);
             NavigationManager.Refresh(forceReload: true);
         }
         else
         {
             // Handle the cancel action
-            _deleteItem?.Hide();
+            _deleteItemModal?.Hide();
         }
     }
 }

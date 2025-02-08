@@ -6,7 +6,7 @@
 <PageTitle>Categories</PageTitle>
 
 <section class="main-content">
-    <h2>@_category.Name</h2>
+    <h2>@_category?.Name</h2>
     <div class="item-container grid">
         @if (_categoryItems is null)
         {
@@ -67,7 +67,7 @@
 
     protected override void OnParametersSet()
     {
-        _categoryItems = ItemsClient.GetItems(_category.Name);
+        _categoryItems = ItemsClient.GetItems(_category?.Name);
     }
 
     protected override void OnInitialized()
