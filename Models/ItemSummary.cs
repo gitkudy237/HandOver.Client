@@ -8,5 +8,4 @@ public class ItemSummary
     public string? ImageUrl { get; set; }
     public required string Location { get; set; }
     public int Price { get; set; }
-    public required string Seller { get; set; }
 }

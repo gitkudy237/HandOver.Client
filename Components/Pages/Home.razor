@@ -32,9 +32,9 @@
                                     <i class="fa-solid fa-location-dot icon--primary"></i>
                                     <span>@item.Location</span>
                                 </p>
-                                <p class="seller">
+                                @* <p class="seller">
                                     <i class="fa-solid fa-user-circle icon--warning"></i><span>@item.Seller</span>
-                                </p>
+                                </p> *@
                             </div>
                         </div>
                     </article>
@@ -47,8 +47,8 @@
 @code
 {
     private ItemSummary[]? _items;
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        _items = ItemsClient.GetItems();
+        _items = await ItemsClient.GetItemsAsync();
     }
 }

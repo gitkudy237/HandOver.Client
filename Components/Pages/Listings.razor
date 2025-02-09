@@ -80,7 +80,7 @@
     protected override void OnParametersSet()
     {
         _user = _users!.First(u => u.Id == Id);
-        _items = ItemsClient.GetItems(_user);
+        @* _items = ItemsClient.GetItems(_user); *@
     }
 
     private void ShowModal(int id)

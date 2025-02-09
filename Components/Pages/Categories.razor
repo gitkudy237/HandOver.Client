@@ -42,9 +42,9 @@
                                         <i class="fa-solid fa-location-dot icon--primary"></i>
                                         <span>@item.Location</span>
                                     </p>
-                                    <p class="seller">
+                                    @* <p class="seller">
                                         <i class="fa-solid fa-user icon--warning"></i><span>@item.Seller</span>
-                                    </p>
+                                    </p> *@
                                 </div>
                             </div>
                         </article>
@@ -61,13 +61,13 @@
     [Parameter]
     public string? Id { get; set; }
 
-    private List<ItemSummary>? _categoryItems = new();
+    private ItemSummary[] _categoryItems = new();
     private Category[]? _categories;
     private Category? _category;
 
-    protected override void OnParametersSet()
+    protected async override Task OnParametersSetAsync()
     {
-        _categoryItems = ItemsClient.GetItems(_category?.Name);
+        _categoryItems = await ItemsClient.GetItemsAsync()
     }
 
     protected override void OnInitialized()

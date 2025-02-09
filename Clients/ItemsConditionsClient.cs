@@ -13,9 +13,11 @@ public class ItemsConditionsClient(HttpClient httpClient)
         new() {Id = 4, Condition = "Heavily used"},
     ];
 
-    public ItemCondition[] GetItemsConditions()
-        => _conditions;
+    public async Task<ItemCondition[]> GetItemsConditionsAsync()
+        => await httpClient.GetFromJsonAsync<ItemCondition[]>("item-conditions")
+            ?? [];
     
-    public ItemCondition? GetItemCondition(int id)
-        => _conditions.FirstOrDefault(c => c.Id == id);
+    public async Task<ItemCondition> GetItemConditionAsync(int id)
+        => await httpClient.GetFromJsonAsync<ItemCondition>($"item-conditions/{id}")
+            ?? throw new Exception("Could not find item-condition");
 }
