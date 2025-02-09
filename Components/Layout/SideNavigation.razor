@@ -20,14 +20,22 @@
         <i class="fa-solid fa-caret-down"></i>
       </div>
       <ul class="dropdown-container .dropdown-active">
-        @foreach (var category in _categories!)
+        @if (_categories is null)
         {
-          <li class="dropdown-item">
-            <a href=@GetCategoryRoute(category)>
-              <span class="@_icongroupColors[category.Id]"><i class=@_categoryIcons[category.Id]></i></span>
-              <span style="text-transform:capitalize">@category.Name</span>
-            </a>
-          </li>
+
+        }
+        else
+        {
+          @foreach (var category in _categories!)
+          {
+            <li class="dropdown-item">
+              <a href=@GetCategoryRoute(category)>
+                <span class="@_icongroupColors[category.Id]"><i class=@_categoryIcons[category.Id]></i></span>
+                <span style="text-transform:capitalize">@category.Name</span>
+              </a>
+            </li>
+          }
+
         }
       </ul>
     </li>
@@ -75,6 +83,6 @@
   }
 
   public string GetCategoryRoute(Category category)
-  => (category is null) ? "" : $"/category/{category.Name}";
+  => (category is null) ? "" : $"/category/{category.Id}";
 
 }
