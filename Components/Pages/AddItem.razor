@@ -12,14 +12,13 @@
 <div class="main-content">
     <h2>@_heading</h2>
     @if (_categories is null ||
-    _users is null ||
     _conditions is null)
     {
         <p>Loading...</p>
     }
     else
     {
-        <EditForm class="form" Model="@_item" FormName="addItem" OnSubmit="HandleSubmit">
+        <EditForm class="form" Model="@_item" FormName="addItem" OnSubmit="HandleSubmitAsync">
             <h3>@_title</h3>
             <div>
                 <label for="name">Item name:</label>
@@ -49,7 +48,7 @@
             <div style="margin-bottom: 15px;">
                 <label for="">Item condition:</label>
                 <div class="radio-container">
-                    <InputRadioGroup @bind-Value=_item.ConditionId>
+                    <InputRadioGroup @bind-Value=_item.ItemConditionId>
                         @foreach (var condition in _conditions)
                         {
                             <InputRadio Value="@condition.Id" id="@condition.Id" />
@@ -80,31 +79,23 @@
     public int? Id { get; set; }
 
     [SupplyParameterFromForm]
-    private ItemDetails? _item { get; set; }
+    private CreateItem? _item { get; set; }
 
-
-    private List<User> _users = new();
+    private ItemDetails? _itemInDb;
     private Category[]? _categories;
     private ItemCondition[]? _conditions;
     @* private User _seller = null!; *@
-    private DateTime _postedOn;
-    private int _sellerId;
     private string _title = "Add New Item";
     private string _heading = "Add new";
     private string _actionText = "Submit";
 
-    protected override void OnInitialized()
+    protected async override Task OnInitializedAsync()
     {
-        _users = UsersClient.GetUsers();
-        _categories = CategoriesClient.GetCategories();
-        _conditions = ItemsConditionsClient.GetItemsConditions();
-
-
-
-        // For now the seller is generated randomly from the list of users
+        _categories = await CategoriesClient.GetCategoriesAsync();
+        _conditions = await ItemsConditionsClient.GetItemsConditionsAsync();
     }
 
-    protected override void OnParametersSet()
+    protected async override Task OnParametersSetAsync()
     {
         // if item has been submitted
         if (_item is not null)
@@ -115,12 +106,16 @@
         // if item exists
         if (Id is not null)
         {
-            _item = ItemsClient.GetItemDetails(Id.Value);
+            _itemInDb = await ItemsClient.GetItemAsync(Id.Value);
+            _item!.Name = _itemInDb!.Name;
+            _item!.CategoryId = _itemInDb!.CategoryId;
+            _item!.ItemConditionId = _itemInDb!.ItemConditionId;
+            _item!.Location = _itemInDb!.Location;
+            _item!.Description = _itemInDb!.Description;
+            _item!.ImageUrl = _itemInDb!.ImageUrl!;
+
             ArgumentNullException.ThrowIfNull(_item);
 
-            _postedOn = _item.PostedOn;
-            _sellerId = _item.SellerId;
-            _heading = "Edit item";
             _title = $"Edit {_item.Name}";
             _actionText = "Confirm";
         }
@@ -128,38 +123,21 @@
         //We are creating the game
         else
         {
-            @* _seller = _users[RandomNumber(_users.Count)]; *@
-            _item = new()
-                {
-                    Name = string.Empty,
-                    Location = string.Empty,
-                    PostedOn = DateTime.UtcNow,
-                };
+            return;
         }
     }
 
-    public int RandomNumber(int max)
-    {
-        Random random = new();
-        return random.Next(max);
-    }
-
-    public void HandleSubmit()
+    public async Task HandleSubmitAsync()
     {
         ArgumentNullException.ThrowIfNull(_item);
 
         if (Id is null)
         {
-            _item.SellerId = 1;
-            _item.PostedOn = DateTime.UtcNow;
-            ItemsClient.AddItem(_item);
+            await ItemsClient.AddItemAsync(_item);
         }
         else
         {
-            _item.Id = Id.Value;
-            _item.PostedOn = _postedOn;
-            _item.SellerId = 1;
-            ItemsClient.UpdateItem(_item);
+            await ItemsClient.UpdateItemAsync(_itemInDb!.Id, _item);
         }
 
         NavigationManager.NavigateTo("/");

@@ -42,17 +42,18 @@ public class ItemsClient(HttpClient httpClient)
     public async Task<ItemSummary[]> GetItemsAsync()
         => await httpClient.GetFromJsonAsync<ItemSummary[]>("items/summary") ?? [];
 
-    public async Task<ItemDetails?> GetItemAsync(int id)
-        => await httpClient.GetFromJsonAsync<ItemDetails>($"/items/{id}");
+    public async Task<ItemDetails> GetItemAsync(int id)
+        => await httpClient.GetFromJsonAsync<ItemDetails>($"/items/{id}")
+            ?? throw new Exception("Could not find item");
     
     public async Task<ItemSummary[]> GetItemByCategoryAsync(int id)
         => await httpClient.GetFromJsonAsync<ItemSummary[]>($"items/category/{id}") ?? [];
 
-    public async Task AddItemAsync(ItemDetails item)
+    public async Task AddItemAsync(CreateItem item)
         => await httpClient.PostAsJsonAsync("items", item);
 
-    public async Task UpdateItemAsync(ItemDetails updatedItem)
-        => await httpClient.PutAsJsonAsync($"items/{updatedItem.Id}", updatedItem);
+    public async Task UpdateItemAsync(int id, CreateItem updatedItem)
+        => await httpClient.PutAsJsonAsync($"items/{id}", updatedItem);
     
     public async Task DeletItemAsync(int id)
         => await httpClient.DeleteAsync($"items/{id}");

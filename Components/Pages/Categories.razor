@@ -15,7 +15,7 @@
         else
         {
 
-            if (_categoryItems.Count == 0)
+            if (_categoryItems.Length == 0)
             {
                 <p>No items...</p>
             }
@@ -59,28 +59,19 @@
 
 @code {
     [Parameter]
-    public string? Id { get; set; }
+    public int? Id { get; set; }
 
-    private ItemSummary[] _categoryItems = new();
-    private Category[]? _categories;
+    private ItemSummary[] _categoryItems = [];
     private Category? _category;
 
     protected async override Task OnParametersSetAsync()
     {
-        _categoryItems = await ItemsClient.GetItemsAsync()
-    }
-
-    protected override void OnInitialized()
-    {
-        if (Id is not null)
+        if (Id is null)
         {
-            _categories = CategoriesClient.GetCategories();
-            _category = _categories
-            .FirstOrDefault(c => c.Name == Id.ToLower());
-        }
-
-        else
             return;
+        }
+        _categoryItems = await ItemsClient.GetItemByCategoryAsync(Id.Value);
+        _category = await CategoriesClient.GetCategoryAsync(Id.Value);
     }
 
 }

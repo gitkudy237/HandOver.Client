@@ -107,24 +107,20 @@ else
   private ItemDetails? _item;
   private ItemCondition? _condition;
   private Category? _category;
-  private User? _seller;
+  private User? _seller = new() {Id = 1, UserName = "Kudy"};
   private List<string> _images = new();
 
-  protected override void OnParametersSet()
+  protected async override Task OnParametersSetAsync()
   {
     if (Id is not null)
     {
-      _item = ItemsClient.GetItemDetails(Id.Value);
-      ArgumentNullException.ThrowIfNull(_item);
+      _item = await ItemsClient.GetItemAsync(Id.Value);
 
-      _category = CategoriesClient.GetCategory(_item.CategoryId);
-      _condition = ItemsConditionsClient.GetItemCondition(_item.ConditionId);
-      _seller = UsersClient.GetUser(_item.SellerId);
+      _category = await CategoriesClient.GetCategoryAsync(_item!.CategoryId);
+      _condition = await ItemsConditionsClient.GetItemConditionAsync(_item.ItemConditionId);
       _images.Add(_item.ImageUrl!);
 
     }
-
-
   }
 
 }

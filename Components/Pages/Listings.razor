@@ -7,8 +7,9 @@
 
 <PageTitle>My listings</PageTitle>
 
+@code{}
 
-<section class="main-content">
+@* <section class="main-content">
     <h2>My listings</h2>
     @if (_items is null || _user is null)
     {
@@ -81,7 +82,7 @@
     {
         _user = _users!.First(u => u.Id == Id);
         @* _items = ItemsClient.GetItems(_user); *@
-    }
+    @* }
 
     private void ShowModal(int id)
     {
@@ -103,4 +104,4 @@
             _deleteItemModal?.Hide();
         }
     }
-}
+}  *@

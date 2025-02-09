@@ -69,9 +69,9 @@
       [9] = "icon-group icon-group--kaki",
     };
 
-  protected override void OnInitialized()
+  protected async override Task OnInitializedAsync()
   {
-    _categories = CategoriesClient.GetCategories();
+    _categories = await CategoriesClient.GetCategoriesAsync();
   }
 
   public string GetCategoryRoute(Category category)
