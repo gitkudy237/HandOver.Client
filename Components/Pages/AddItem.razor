@@ -79,7 +79,12 @@
     public int? Id { get; set; }
 
     [SupplyParameterFromForm]
-    private CreateItem? _item { get; set; }
+    private CreateItem? _item { get; set; } = new()
+    {
+        Name = string.Empty,
+        Location = string.Empty,
+        ImageUrl = string.Empty
+    };
 
     private ItemDetails? _itemInDb;
     private Category[]? _categories;
