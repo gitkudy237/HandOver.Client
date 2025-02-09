@@ -2,7 +2,7 @@
 
 namespace HandOver.Client.Clients;
 
-public class CategoriesClient
+public class CategoriesClient(HttpClient httpClient)
 {
     private readonly Category[] _categories =
     {

@@ -3,7 +3,7 @@ using HandOver.Client.Models;
 
 namespace HandOver.Client.Clients;
 
-public class ItemsConditionsClient
+public class ItemsConditionsClient(HttpClient httpClient)
 {
     private readonly ItemCondition[] _conditions =
     [

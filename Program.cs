@@ -7,10 +7,20 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-builder.Services.AddSingleton<ItemsClient>();
-builder.Services.AddSingleton<CategoriesClient>();
+
+var handOverApiUrl = builder.Configuration["handOverApiUrl"] ?? 
+    throw new Exception("HandOverApiUrl is not set");
+
+builder.Services.AddHttpClient<ItemsClient>(
+    client => client.BaseAddress = new Uri(handOverApiUrl));
+builder.Services.AddHttpClient<CategoriesClient>(
+    client => client.BaseAddress = new Uri(handOverApiUrl));
+builder.Services.AddHttpClient<ItemsConditionsClient>(
+    client => client.BaseAddress = new Uri(handOverApiUrl));
+
+
 builder.Services.AddSingleton<UsersClient>();
-builder.Services.AddSingleton<ItemsConditionsClient>();
+
 builder.Services.AddMudServices();
 
 var app = builder.Build();

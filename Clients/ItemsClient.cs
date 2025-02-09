@@ -2,7 +2,7 @@
 
 namespace HandOver.Client.Clients;
 
-public class ItemsClient
+public class ItemsClient(HttpClient httpClient)
 {
     private readonly List<ItemSummary> _itemsSummaries =
         [
@@ -40,7 +40,7 @@ public class ItemsClient
     private readonly List<ItemDetails> _itemsDetails = new();
 
     private readonly List<User> _users = new UsersClient().GetUsers();
-    private readonly Category[] _categories = new CategoriesClient().GetCategories();
+    private readonly Category[] _categories = new CategoriesClient(httpClient).GetCategories();
 
     public ItemSummary[] GetItems()
     {
