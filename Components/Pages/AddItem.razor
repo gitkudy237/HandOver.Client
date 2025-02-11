@@ -19,25 +19,29 @@
     }
     else
     {
-        <EditForm class="form" Model="@_item" FormName="addItem" OnSubmit="HandleSubmitAsync">
+        <EditForm class="form" Model="@_item" FormName="addItem" OnValidSubmit="HandleSubmitAsync">
+            <DataAnnotationsValidator />
             <h3>@_title</h3>
             <div>
-                <label for="name">Item name:</label>
+                <label for="name">Item name:*</label>
                 <InputText class="input" type="text" id="name" placeholder="Enter item name..." @bind-Value="_item.Name" />
+                <ValidationMessage For="() => _item.Name" />
             </div>
             @* This is momentary *@
             <div>
-                <label for="image">Image url:</label>
+                <label for="image">Image url:*</label>
                 <InputText class="input" type="text" id="image" placeholder="Enter Image url..."
                     @bind-Value="_item.ImageUrl" />
+                <ValidationMessage For="() => _item.ImageUrl" />
             </div>
             <div>
-                <label for="location">Location:</label>
+                <label for="location">Location:*</label>
                 <InputText class="input" type="text" id="location" placeholder="Enter location..."
                     @bind-Value="_item.Location" />
+                <ValidationMessage For="() => _item.Location" />
             </div>
             <div>
-                <label for="category">Category:</label>
+                <label for="category">Category:*</label>
                 <InputSelect type="text" id="category" @bind-Value="_item.CategoryId">
                     <option value="">Select category</option>
                     @foreach (var category in _categories)
@@ -45,9 +49,10 @@
                         <option value="@category.Id">@category.Name</option>
                     }
                 </InputSelect>
+                <ValidationMessage For="() => _item.CategoryId" />
             </div>
             <div style="margin-bottom: 15px;">
-                <label for="">Item condition:</label>
+                <label for="">Item condition:*</label>
                 <div class="radio-container">
                     <InputRadioGroup @bind-Value=_item.ItemConditionId>
                         @foreach (var condition in _conditions)
@@ -56,11 +61,13 @@
                             <label for="@condition.Id">@condition.Condition</label>
                         }
                     </InputRadioGroup>
+                    <ValidationMessage For="() => _item.ItemConditionId" />
                 </div>
             </div>
             <div>
-                <label for="price">Price:</label>
+                <label for="price">Price:*</label>
                 <InputNumber class="input" id="price" @bind-Value="_item.Price" />
+                <ValidationMessage For="() => _item.Price" />
             </div>
             
             <div>
