@@ -141,18 +141,11 @@
         if (Id is null)
         {
             await ItemsClient.AddItemAsync(_item);
-        }
-        else
-        {
-            await ItemsClient.UpdateItemAsync(Id.Value, _item);
-        }
-
-        if (NavigationManager.Uri.Equals("/additem"))
-        {
             NavigationManager.NavigateTo("/");
         }
         else
         {
+            await ItemsClient.UpdateItemAsync(Id.Value, _item);
             NavigationManager.NavigateTo("/listings");
         }
 
