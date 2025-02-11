@@ -76,6 +76,7 @@
     protected async override Task OnInitializedAsync()
     {
         _items = await ItemsClient.GetItemsAsync();
+        Array.Sort(_items, new ItemIdComparer());
     }
 
     

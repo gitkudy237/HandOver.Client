@@ -71,6 +71,8 @@
             return;
         }
         _categoryItems = await ItemsClient.GetItemByCategoryAsync(Id.Value);
+        Array.Sort(_categoryItems, new ItemIdComparer());
+        
         _category = await CategoriesClient.GetCategoryAsync(Id.Value);
     }
 
