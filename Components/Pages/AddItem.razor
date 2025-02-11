@@ -11,8 +11,9 @@
 
 <div class="main-content">
     <h2>@_heading</h2>
-    @if (_categories is null ||
-    _conditions is null)
+    @if (_categories is null 
+        || _conditions is null
+        || _item is null)
     {
         <p>Loading...</p>
     }
@@ -22,7 +23,7 @@
             <h3>@_title</h3>
             <div>
                 <label for="name">Item name:</label>
-                <InputText class="input" type="text" id="name" placeholder="Enter item name..." @bind-Value="_item!.Name" />
+                <InputText class="input" type="text" id="name" placeholder="Enter item name..." @bind-Value="_item.Name" />
             </div>
             @* This is momentary *@
             <div>
@@ -79,57 +80,51 @@
     public int? Id { get; set; }
 
     [SupplyParameterFromForm]
-    private CreateItem? _item { get; set; } = new()
-    {
-        Name = string.Empty,
-        Location = string.Empty,
-        ImageUrl = string.Empty
-    };
+    private CreateItem? _item { get; set; }
 
     private ItemDetails? _itemInDb;
     private Category[]? _categories;
     private ItemCondition[]? _conditions;
-    @* private User _seller = null!; *@
     private string _title = "Add New Item";
     private string _heading = "Add new";
     private string _actionText = "Submit";
 
-    protected async override Task OnInitializedAsync()
-    {
-        _categories = await CategoriesClient.GetCategoriesAsync();
-        _conditions = await ItemsConditionsClient.GetItemsConditionsAsync();
-    }
-
     protected async override Task OnParametersSetAsync()
     {
-        // if item has been submitted
         if (_item is not null)
         {
             return;
         }
 
-        // if item exists
         if (Id is not null)
         {
             _itemInDb = await ItemsClient.GetItemAsync(Id.Value);
-            _item!.Name = _itemInDb!.Name;
-            _item!.CategoryId = _itemInDb!.CategoryId;
-            _item!.ItemConditionId = _itemInDb!.ItemConditionId;
-            _item!.Location = _itemInDb!.Location;
-            _item!.Description = _itemInDb!.Description;
-            _item!.ImageUrl = _itemInDb!.ImageUrl!;
+            ArgumentNullException.ThrowIfNull(_itemInDb);
 
-            ArgumentNullException.ThrowIfNull(_item);
+            _item = new();
+
+            _item.Name = _itemInDb.Name;
+            _item.CategoryId = _itemInDb.CategoryId;
+            _item.ItemConditionId = _itemInDb.ItemConditionId;
+            _item.Location = _itemInDb.Location;
+            _item.Description = _itemInDb.Description;
+            _item.Price = _itemInDb.Price;
+            _item.ImageUrl = _itemInDb.ImageUrl;
 
             _title = $"Edit {_item.Name}";
             _actionText = "Confirm";
         }
 
-        //We are creating the game
         else
         {
-            return;
+            _item = new();
         }
+    }
+
+    protected async override Task OnInitializedAsync()
+    {
+        _categories = await CategoriesClient.GetCategoriesAsync();
+        _conditions = await ItemsConditionsClient.GetItemsConditionsAsync();
     }
 
     public async Task HandleSubmitAsync()
@@ -142,9 +137,17 @@
         }
         else
         {
-            await ItemsClient.UpdateItemAsync(_itemInDb!.Id, _item);
+            await ItemsClient.UpdateItemAsync(Id.Value, _item);
         }
 
-        NavigationManager.NavigateTo("/");
+        if (NavigationManager.Uri.Equals("/additem"))
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/listings");
+        }
+
     }
 }
