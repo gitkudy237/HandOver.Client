@@ -7,6 +7,8 @@
 @inject ItemsClient ItemsClient
 @inject NavigationManager NavigationManager
 
+@rendermode InteractiveServer
+
 <PageTitle>@_heading</PageTitle>
 
 <div class="main-content">
@@ -28,12 +30,7 @@
                 <ValidationMessage For="() => _item.Name" />
             </div>
             @* This is momentary *@
-            <div>
-                <label for="image">Image url:*</label>
-                <InputText class="input" type="text" id="image" placeholder="Enter Image url..."
-                    @bind-Value="_item.ImageUrl" />
-                <ValidationMessage For="() => _item.ImageUrl" />
-            </div>
+            
             <div>
                 <label for="location">Location:*</label>
                 <InputText class="input" type="text" id="location" placeholder="Enter location..."
@@ -69,7 +66,12 @@
                 <InputNumber class="input" id="price" @bind-Value="_item.Price" />
                 <ValidationMessage For="() => _item.Price" />
             </div>
-            
+            <div>
+                <label for="">Upload images:</label>
+                <InputFile OnChange="OnChange" multiple accept="image/jpeg, image/png, image/gif" id="inputFile"
+                    @bind-Value="@_item.Images" />
+                
+            </div>
             <div>
                 <label for="description">Description:</label>
                 <InputTextArea class="input" id="description" @bind-Value="_item.Description" />
@@ -92,6 +94,7 @@
     private ItemDetails? _itemInDb;
     private Category[]? _categories;
     private ItemCondition[]? _conditions;
+    private List<ImageFile> _filesBase64 = new List<ImageFile>();
     private string _title = "Add New Item";
     private string _heading = "Add new";
     private string _actionText = "Submit";
@@ -140,6 +143,7 @@
 
         if (Id is null)
         {
+            _item.Images = _filesBase64;
             await ItemsClient.AddItemAsync(_item);
             NavigationManager.NavigateTo("/");
         }
@@ -150,4 +154,29 @@
         }
 
     }
+
+    private async Task OnChange(InputFileChangeEventArgs e)
+    {
+        var files = e.GetMultipleFiles();
+        foreach (var file in files)
+        {
+            @* var resizedFile = await file.RequestImageFileAsync(file.ContentType, 640, 480); *@
+            var buffer = new byte[file.Size];
+            using (var stream  = file.OpenReadStream())
+            {
+                await stream.ReadAsync(buffer);
+            }
+
+            _filesBase64.Add(new ImageFile 
+            {
+                Base64Data = Convert.ToBase64String(buffer),
+                ContentType = file.ContentType,
+                FileName = file.Name
+            });
+        }
+
+    }
+    
+
+
 }
