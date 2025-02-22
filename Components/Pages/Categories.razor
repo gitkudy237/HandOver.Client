@@ -2,6 +2,7 @@
 
 @inject ItemsClient ItemsClient
 @inject CategoriesClient CategoriesClient
+@inject ImagesClient ImagesClient
 
 <PageTitle>Categories</PageTitle>
 
@@ -27,7 +28,7 @@
                     <a href="/items/@item.Id">
                         <article class="card">
                             <div class="card-header">
-                                <img src=@item.ImageUrl alt=@item.Name />
+                                <img src=@item.ImageUrls![0] alt=@item.Name />
                             </div>
                             <div class="card-body flex">
                                 <h3 class="card-title">
@@ -72,6 +73,11 @@
         }
         _categoryItems = await ItemsClient.GetItemByCategoryAsync(Id.Value);
         Array.Sort(_categoryItems, new ItemIdComparer());
+
+        foreach (var item in _categoryItems)
+        {
+            item.ImageUrls = await ImagesClient.GetItemImagesAsync(item.Id);
+        }
         
         _category = await CategoriesClient.GetCategoryAsync(Id.Value);
     }

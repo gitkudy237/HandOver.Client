@@ -2,6 +2,7 @@
 @using HandOver.Client.Helpers
 @rendermode InteractiveServer
 @inject ItemsClient ItemsClient
+@inject ImagesClient ImagesClient
 
 <PageTitle>Home</PageTitle>
 <section class="main-content">
@@ -18,7 +19,7 @@
                 <a href="/items/@item.Id">
                     <article class="card">
                         <div class="card-header">
-                            <img src=@item.ImageUrl alt=@item.Name />
+                            <img src=@item.ImageUrls![0] alt=@item.Name />
                         </div>
                         <div class="card-body flex">
                             <h3 class="card-title">
@@ -52,5 +53,10 @@
     {
         _items = await ItemsClient.GetItemsAsync();
         Array.Sort(_items, new ItemIdComparer());
+
+        foreach (var item in _items)
+        {
+            item.ImageUrls = await ImagesClient.GetItemImagesAsync(item.Id);
+        }
     }
 }
