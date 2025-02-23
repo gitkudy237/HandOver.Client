@@ -4,7 +4,6 @@
 @inject ItemsClient ItemsClient
 @inject UsersClient UsersClient
 @inject NavigationManager NavigationManager
-@inject ImagesClient ImagesClient
 
 <PageTitle>My listings</PageTitle>
 
@@ -29,7 +28,7 @@
                 {
                     <article class="card">
                         <div class="card-header">
-                            <img src=@item.ImageUrls![0] alt=@item.Name />
+                            <img src=@item.ImageUrl alt=@item.Name />
                         </div>
                         <div class="card-body flex">
                             <h3 class="card-title">
@@ -78,10 +77,6 @@
     {
         _items = await ItemsClient.GetItemsAsync();
         Array.Sort(_items, new ItemIdComparer());
-        foreach (var item in _items)
-        {
-            item.ImageUrls = await ImagesClient.GetItemImagesAsync(item.Id);
-        }
     }
 
     
