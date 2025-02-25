@@ -1,0 +1,47 @@
+﻿<div class="no-item-container">
+    <h2>No items</h2>
+    <div>
+        <img src="/Images/no-items.svg.svg" alt="Alternate Text" class="no-content-image"/>
+    </div>
+    <p class="no-content-text">@ActionText</p>
+    <a href="@ActionLink">
+        <button class="btn btn--primary">@ButtonText</button>
+    </a>
+</div>
+
+<style>
+    .no-item-container {
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        row-gap: 20px;
+        text-align: center;
+        place-self: center;
+    }
+    
+    .no-content-image {
+        width: 200px;
+        height: auto;
+        display: block;
+        place-self: center;
+    }
+
+    .no-content-text {
+        color: var(--color-primary);
+        font-weight: bold;
+    }
+</style>
+
+@code {
+    [Parameter]
+    public string? ActionText {get; set;}
+
+    [Parameter]
+    public string? ButtonText {get; set;}
+
+    [Parameter]
+    public string? ActionLink {get; set;}
+
+}
