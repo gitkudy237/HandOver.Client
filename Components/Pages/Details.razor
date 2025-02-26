@@ -4,6 +4,7 @@
 @inject ItemsConditionsClient ItemsConditionsClient
 @inject CategoriesClient CategoriesClient
 @inject ItemsClient ItemsClient
+@inject ImagesClient ImagesClient
 @inject NavigationManager NavigationManager
 
 
@@ -118,7 +119,7 @@ else
 
       _category = await CategoriesClient.GetCategoryAsync(_item!.CategoryId);
       _condition = await ItemsConditionsClient.GetItemConditionAsync(_item.ItemConditionId);
-      _images.Add(_item.ImageUrl!);
+      _images = [.. await ImagesClient.GetAllItemImagesAsync(Id.Value)];
 
     }
   }

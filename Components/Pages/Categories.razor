@@ -7,22 +7,23 @@
 
 <section class="main-content">
     <h2>@_category?.Name</h2>
-    <div class="item-container grid">
-        @if (_categoryItems is null)
+    @if (_categoryItems is null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        if (_categoryItems.Length == 0)
         {
-            <p>Loading...</p>
+            <NoItemMessage 
+                ActionText="Don't worry, you can create an announcement?" 
+                ButtonText="Create announcement" 
+                ActionLink="#" />
         }
         else
         {
-
-            if (_categoryItems.Length == 0)
-            {
-                <p>No items...</p>
-            }
-            else
-            {
-
-                foreach (var item in _categoryItems)
+            <div class="item-container grid">
+                @foreach (var item in _categoryItems)
                 {
                     <a href="/items/@item.Id">
                         <article class="card">
@@ -43,17 +44,18 @@
                                         <span>@item.Location</span>
                                     </p>
                                     @* <p class="seller">
-                                        <i class="fa-solid fa-user icon--warning"></i><span>@item.Seller</span>
-                                    </p> *@
+                            <i class="fa-solid fa-user icon--warning"></i><span>@item.Seller</span>
+                            </p> *@
                                 </div>
                             </div>
                         </article>
 
                     </a>
                 }
-            }
+            </div>
         }
-    </div>
+    }
+   
 </section>
 
 

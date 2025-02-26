@@ -19,7 +19,10 @@
     {
         if (_items.Length == 0)
         {
-            <p>No items...</p>
+            <NoItemMessage
+                ActionText="Do you want to add a new item?"
+                ButtonText="Add new"
+                ActionLink="/additem"/>
         }
         else
         {   
