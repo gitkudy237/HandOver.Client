@@ -22,4 +22,5 @@ public class CreateItem
     public int Price { get; set; }
     public string? Description { get; set; }
     public List<ImageFile>? Images { get; set; }
+    public ImageFile? ProofOfSale { get; set; }
 }

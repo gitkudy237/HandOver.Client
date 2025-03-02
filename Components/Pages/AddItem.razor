@@ -73,6 +73,12 @@
                 
             </div>
             <div>
+                <label for="">ProofOfSale:</label>
+                <InputFile OnChange="OnChangeSingle" multiple accept="image/jpeg, image/png, image/gif" id="proof"
+                           @bind-Value="@_item.ProofOfSale" />
+
+            </div>
+            <div>
                 <label for="description">Description:</label>
                 <InputTextArea class="input" id="description" @bind-Value="_item.Description" />
             </div>
@@ -95,6 +101,7 @@
     private Category[]? _categories;
     private ItemCondition[]? _conditions;
     private List<ImageFile> _filesBase64 = new List<ImageFile>();
+    private ImageFile? _proofOfSale;
     private string _title = "Add New Item";
     private string _heading = "Add new";
     private string _actionText = "Submit";
@@ -143,6 +150,7 @@
         if (Id is null)
         {
             _item.Images = _filesBase64;
+            _item.ProofOfSale = _proofOfSale;
             await ItemsClient.AddItemAsync(_item);
             NavigationManager.NavigateTo("/");
         }
@@ -175,7 +183,24 @@
         }
 
     }
-    
+
+    private async Task OnChangeSingle(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        var buffer = new byte[file.Size];
+        using (var stream = file.OpenReadStream())
+        {
+            await stream.ReadAsync(buffer);
+        }
+
+        _proofOfSale = new ImageFile
+        {
+            Base64Data = Convert.ToBase64String(buffer),
+            ContentType = file.ContentType,
+            FileName = file.Name
+        };
+    }
+
 
 
 }
