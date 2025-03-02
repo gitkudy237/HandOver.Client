@@ -24,6 +24,7 @@
         <EditForm class="form" Model="@_item" FormName="addItem" OnValidSubmit="HandleSubmitAsync">
             <DataAnnotationsValidator />
             <h3>@_title</h3>
+            
             <div>
                 <label for="name">Item name:*</label>
                 <InputText class="input" type="text" id="name" placeholder="Enter item name..." @bind-Value="_item.Name" />
@@ -73,7 +74,8 @@
                 
             </div>
             <div>
-                <label for="">ProofOfSale:</label>
+                <p style="color:red;">@_error</p>
+                <label for="">Proof of sale:</label>
                 <InputFile OnChange="OnChangeSingle" multiple accept="image/jpeg, image/png, image/gif" id="proof"
                            @bind-Value="@_item.ProofOfSale" />
 
@@ -105,6 +107,7 @@
     private string _title = "Add New Item";
     private string _heading = "Add new";
     private string _actionText = "Submit";
+    private string _error = string.Empty;
 
     protected async override Task OnParametersSetAsync()
     {
@@ -151,8 +154,16 @@
         {
             _item.Images = _filesBase64;
             _item.ProofOfSale = _proofOfSale;
-            await ItemsClient.AddItemAsync(_item);
-            NavigationManager.NavigateTo("/");
+            if (RequiresProof(_item.CategoryId) && _item.ProofOfSale == null)
+            {
+                _error = "This item requires a proof of purchase";
+            }
+
+            else
+            {
+                await ItemsClient.AddItemAsync(_item);
+                NavigationManager.NavigateTo("/");
+            }
         }
         else
         {
@@ -199,6 +210,14 @@
             ContentType = file.ContentType,
             FileName = file.Name
         };
+    }
+
+    private bool RequiresProof(int categoryId)
+    {
+        if (categoryId == 2 || categoryId == 3)
+            return true;
+
+        return false;
     }
 
 
