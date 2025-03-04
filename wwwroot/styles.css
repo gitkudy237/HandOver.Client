@@ -605,16 +605,19 @@ a {
 }
 
 .item-container {
-  grid-template-columns: repeat(3, 1fr);
-  place-items: center;
-  padding-inline: 1%;
+  display: flex;
+  justify-content: flex-start;
+  column-gap: 10px;
+  flex-wrap: wrap;
 }
 
-@media screen and (min-width: 1500px) {
+@media screen and (max-width: 1024px)
+{
   .item-container {
-    grid-template-columns: repeat(4, 1fr);
+    justify-content: center;
   }
 }
+
 
 /* Forms */
 
