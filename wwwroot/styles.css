@@ -57,6 +57,7 @@ body {
   overflow: hidden;
 }
 
+
 h1,
 h2,
 h3 {
@@ -65,6 +66,21 @@ h3 {
 
 h3 {
   font-size: 1.1rem;
+}
+
+@media screen and (max-width: 768px)
+{
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  h3 {
+    font-size: 0.9rem;
+  }
 }
 
 /* Buttons */
@@ -524,6 +540,12 @@ a {
   padding-left: 1rem;
 }
 
+@media screen and (max-width: 870px) {
+  .side-nav {
+    display: none;
+  }
+}
+
 .top-nav {
   justify-content: space-between;
   align-items: center;
@@ -565,6 +587,14 @@ a {
   font-size: 0.9rem;
 }
 
+@media screen and (max-width: 870px)
+{
+  .top-nav .action-section
+  {
+    display: none;
+  }
+}
+
 /* .dropdown-container {
   height: 0;
   opacity: 0;
@@ -584,6 +614,12 @@ a {
     "top-nav top-nav"
     "side-nav main-content";
   }
+
+@media screen and (max-width: 870px) {
+  .main-container {
+    grid-template-columns: 1fr;
+  }
+}
   
   /* Main content */
   
