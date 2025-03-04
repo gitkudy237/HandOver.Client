@@ -391,7 +391,6 @@ a {
   transform: scale(0.95);
 }
 
-
 .card:hover .card-header img {
   transform: scale(1.05);
 }
@@ -478,6 +477,32 @@ a {
 .card-actions a:hover {
   text-decoration: underline;
 }
+
+@media screen and (max-width:630px) {
+  .card {
+    width: 200px;
+    height: 290px;
+    transform: scale(.9);
+  }
+
+  .card-header {
+    height: 180px;
+  }
+  
+  .card-body {
+    row-gap: 3px;
+  }
+
+  .card-title {
+    font-size: 0.85rem;
+  }
+
+  .price {
+    font-size: 1rem;
+  }
+
+}
+
 
 /* Navigation */
 
@@ -640,17 +665,30 @@ a {
   text-transform: capitalize;
 }
 
+@media screen and (max-width: 870px) {
+  .main-content{
+    margin-left: -40px;
+  }
+}
+
 .item-container {
   display: flex;
   justify-content: flex-start;
   column-gap: 10px;
   flex-wrap: wrap;
+  
 }
 
 @media screen and (max-width: 1024px)
 {
   .item-container {
     justify-content: center;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .item-container {
+    gap: 0;
   }
 }
 
