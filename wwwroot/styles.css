@@ -755,6 +755,17 @@ option {
     height: 100%;
 }
 
+@media screen and (max-width: 630px)
+{
+  .details-container {
+    grid-template-columns: 1fr;
+    grid-template-areas: "carousel"
+                          "item-details";
+    grid-template-rows: repeat(2, 1fr);
+    height: auto;
+  }
+}
+
 .carousel-container {
     background-color: var(--color-background-grey);
     grid-area: carousel;
@@ -768,7 +779,7 @@ option {
     justify-content: flex-start;
     padding: .5rem 1rem;
     padding-top: 0;
-    overflow: scroll;
+    /* overflow: scroll; */
     background: var(--color-white);
 
     & .section
