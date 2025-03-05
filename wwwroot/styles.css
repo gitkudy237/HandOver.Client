@@ -608,11 +608,11 @@ a {
 }
 
 .top-nav .logo {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 500;
   color: var(--color-white);
   background-color: var(--color-primary);
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.9rem;
 
 }
 
