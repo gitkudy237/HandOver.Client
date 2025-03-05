@@ -88,7 +88,7 @@ h3 {
 .btn {
   border: 0;
   font-weight: 500;
-  padding: 0.8rem 1rem;
+  padding: 0.7rem 0.9rem;
   border-radius: var(--border-radius);
   cursor: pointer;
   /* margin: 3px; */
