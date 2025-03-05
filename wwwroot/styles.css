@@ -643,6 +643,9 @@ a {
 @media screen and (max-width: 870px) {
   .main-container {
     grid-template-columns: 1fr;
+    grid-template-areas: 
+      "top-nav top-nav"
+      "main-content main-content";
   }
 }
   
@@ -697,13 +700,21 @@ a {
 
 .form {
   margin: auto;
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
   border: 1px solid var(--border-color);
   padding: 30px 60px;
   box-shadow: 0 0 5px lightgray;
   border-radius: 10px;
   background: var(--color-white);
 }
+
+@media screen and (max-width: 630px) {
+  .form {
+    margin: 10px;
+  }
+}
+
 
 .form h3 {
   text-align: center;
