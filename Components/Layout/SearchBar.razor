@@ -1,6 +1,8 @@
 ﻿
 @inject NavigationManager NavigationManager
 
+@rendermode InteractiveServer
+
 <div class="input-group flex">
     <input class="input" type="text" placeholder="Search an item..." @bind="_searchString" />
     <button class="btn btn--icon" @onclick="HandleSearch">

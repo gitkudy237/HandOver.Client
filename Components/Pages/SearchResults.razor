@@ -1,0 +1,73 @@
+﻿@page "/search/{searchString}"
+
+@inject ItemsClient ItemsClient
+
+<PageTitle>Search results</PageTitle>
+
+<section class="main-content">
+    <h2>results for "@SearchString"</h2>
+    @if (_items is null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        if (_items.Length == 0)
+        {
+            <NoItemMessage 
+                ActionText="Don't worry, you can create an announcement?"
+                ButtonText="Create announcement"
+            ActionLink="#" />
+        }
+        else
+        {
+            <div class="item-container">
+                @foreach (var item in _items)
+                {
+                    <a href="/items/@item.Id">
+                        <article class="card">
+                            <div class="card-header">
+                                <img src="@item.ImageUrl" alt="@item.Name" />
+                            </div>
+                            <div class="card-body flex">
+                                <h3 class="card-title">
+                                    @item.Name
+                                </h3>
+                                <p class="price">@item.Price.ToString("N0") FCFA</p>
+                                <div class="item-category">
+                                    <span>@item.Category</span>
+                                </div>
+                                <div class="details">
+                                    <p class="location">
+                                        <i class="fa-solid fa-location-dot icon--primary"></i>
+                                        <span>@item.Location</span>
+                                    </p>
+                                    @* <p class="seller">
+                        <i class="fa-solid fa-user-circle icon--warning"></i><span>@item.Seller</span>
+                        </p> *@
+                                </div>
+                            </div>
+                        </article>
+                    </a>
+                }
+            </div>
+        }
+    }
+   
+</section>
+
+@code {
+    [Parameter]
+    public string SearchString {get; set;} = string.Empty;
+    
+    private ItemSummary[]? _items;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (!string.IsNullOrWhiteSpace(SearchString))
+        {
+            _items = await ItemsClient.SearchItemsWithKeyWord(SearchString);
+        }
+    }
+
+}
