@@ -573,9 +573,29 @@ a {
   padding-left: 1rem;
 }
 
+@media screen and (min-width: 870px) {
+  .nav-toggler {
+    display: none;
+  }
+}
+
+#toggler-input {
+  display: none;
+}
+
+#toggler-input:checked ~ .side-nav {
+  left: 0;
+}
+
 @media screen and (max-width: 870px) {
   .side-nav {
-    display: none;
+    position: fixed;
+    left: -100%;
+    z-index: 1000;
+    width: 80%;
+    height: 100vh;
+    background: var(--color-white);
+    transition: left .2s ease;
   }
 }
 
