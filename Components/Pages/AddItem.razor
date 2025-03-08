@@ -26,7 +26,12 @@
             <h3>@_title</h3>
             
             
-            @* This is momentary *@
+            <div>
+                <label for="location">Name:*</label>
+                <InputText class="input" type="text" id="location" placeholder="Enter item name..."
+                    @bind-Value="_item.Name" />
+                <ValidationMessage For="() => _item.Name" />
+            </div>
             
             <div>
                 <label for="location">Location:*</label>
