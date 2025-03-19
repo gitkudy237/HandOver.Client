@@ -1,6 +1,8 @@
 ﻿@page "/CreateAnnouncement"
 
 @inject CategoriesClient CategoriesClient
+@inject AnnouncementsClient AnnouncementsClient
+@inject NavigationManager NavigationManager
 
 <PageTitle>Announcement | New</PageTitle>
 
@@ -32,7 +34,7 @@
             <div>
                 <label for="name">location:*</label>
                 <InputText class="input" type="text" id="location" placeholder="Enter location..." 
-                @bind-Value="_announcement.Name" />
+                @bind-Value="_announcement.Location" />
                 <ValidationMessage For="() => _announcement.Location" />
             </div>
             <div>
@@ -71,7 +73,7 @@
 
 @code {
     [SupplyParameterFromForm]
-    private CreateItemRequest? _announcement {get; set;} = new();
+    private CreateItemRequest _announcement {get; set;} = new();
     private Category[]? _categories;
     private string _title = "Tell us what you want!";
     private ImageFile? _imageFile;
@@ -99,6 +101,7 @@
     }
     private async Task HandleSubmitAsync(EditContext args)
     {
-        @* throw new NotImplementedException(); *@
+        await AnnouncementsClient.AddAnnouncementAsync(_announcement);
+        NavigationManager.NavigateTo("/");
     }
 }

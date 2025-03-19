@@ -19,6 +19,8 @@ builder.Services.AddHttpClient<ItemsConditionsClient>(
     client => client.BaseAddress = new Uri(handOverApiUrl));
 builder.Services.AddHttpClient<ImagesClient>(
     client => client.BaseAddress = new Uri(handOverApiUrl));
+builder.Services.AddHttpClient<AnnouncementsClient>(
+    client => client.BaseAddress = new Uri(handOverApiUrl));
 
 
 builder.Services.AddSingleton<UsersClient>();
