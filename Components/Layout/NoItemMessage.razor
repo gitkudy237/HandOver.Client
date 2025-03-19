@@ -1,4 +1,4 @@
-﻿<div class="no-item-container">
+﻿<div class="no-item-container @ClassName">
     <h2>No items</h2>
     <div>
         <img src="/Images/no-items.svg.svg" alt="Alternate Text" class="no-content-image"/>
@@ -43,5 +43,8 @@
 
     [Parameter]
     public string? ActionLink {get; set;}
+
+    [Parameter]
+    public string? ClassName {get; set;}
 
 }

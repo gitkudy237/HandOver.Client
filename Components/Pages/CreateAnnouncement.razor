@@ -36,20 +36,21 @@
                 <ValidationMessage For="() => _announcement.Location" />
             </div>
             <div>
-                <label for="price">Price:*</label>
                 <div class="input-container-2">
                     <div>
+                        <label for="min-price">Minimum price:*</label>
                         <InputNumber class="input" id="min-price" @bind-Value="_announcement.MinPrice" aria-placeholder="Minimum"/>
                         <ValidationMessage For="() => _announcement.MinPrice" />
                     </div>
                     <div>
+                        <label for="max-price">Maximum price:*</label>
                         <InputNumber class="input" id="max-price" @bind-Value="_announcement.MaxPrice" placeholder="Maximum"/>
                         <ValidationMessage For="() => _announcement.MaxPrice" />
                     </div>
                 </div>
             </div>
             <div>
-                <label for="name">Contact:*</label>
+                <label for="name">Contact (Whatsapp):*</label>
                 <InputText class="input" type="text" id="contact" placeholder="Enter your Contact..." 
                 @bind-Value="_announcement.UserContact" />
                 <ValidationMessage For="() => _announcement.UserContact" />
