@@ -1,0 +1,64 @@
+﻿@page "/announcements"
+
+@inject NavigationManager NavigationManager
+@inject AnnouncementsClient AnnouncementsClient
+
+<PageTitle>HandOver | Announcements</PageTitle>
+
+<div class="main-content">
+    <h2>Announcements</h2>
+    @if (_announcements is null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        if (_announcements.Length == 0)
+        {
+            <NoItemMessage 
+                ActionText="No announcements yet."
+                ButtonText="Create announcement"
+                ActionLink="/createannouncements"/>
+        }
+        else
+        {
+            <div class="item-container">
+                @foreach (var announcement in _announcements)
+                {
+                    <article class="card">
+                        <div class="card-header">
+                            <img src="@announcement.ImageUrl" alt="@announcement.Name" />
+                        </div>
+                        <div class="card-body flex">
+                            <h3 class="card-title">
+                                @announcement.Name
+                            </h3>
+                            <p class="price">@announcement.MaxPrice.ToString("N0") FCFA</p>
+                            <div class="item-category">
+                                <span>@announcement.Category</span>
+                            </div>
+                            <div class="details">
+                                <p class="location">
+                                    <i class="fa-solid fa-location-dot icon--primary"></i>
+                                    <span>@announcement.Location</span>
+                                </p>
+                                @* <p class="seller">
+                    <i class="fa-solid fa-user-circle icon--warning"></i><span>@item.Seller</span>
+                    </p> *@
+                            </div>
+                        </div>
+                    </article>
+                }
+            </div>
+        }
+    }
+</div>
+
+@code {
+    private AnnouncementSummary[]? _announcements;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _announcements = await AnnouncementsClient.GetAnnouncementsAsync();
+    }
+}
