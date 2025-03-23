@@ -7,7 +7,7 @@ public class CreateItemRequest
 {
     [Required][StringLength(30)]
     public string? Name { get; set; }
-    public int CategoryId { get; set; }
+    public int? CategoryId { get; set; }
     public string? Description { get; set; }
     public ImageFile? Image { get; set; }
 

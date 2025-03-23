@@ -6,7 +6,13 @@
 <PageTitle>HandOver | Announcements</PageTitle>
 
 <div class="main-content">
-    <h2>Announcements</h2>
+    <div class="header-container">
+        <h2>Announcements</h2>
+        <a href="/createannouncement">
+            <button class="btn btn--primary">Create new</button>
+        </a>
+
+    </div>
     @if (_announcements is null)
     {
         <p>Loading...</p>
@@ -33,9 +39,12 @@
                             <h3 class="card-title">
                                 @announcement.Name
                             </h3>
-                            <p class="price">@announcement.MaxPrice.ToString("N0") FCFA</p>
+                            <p class="price">
+                                <span>@announcement.MinPrice.ToString("N0")</span> -
+                                <span>@announcement.MaxPrice.ToString("N0")</span> FCFA
+                            </p>
                             <div class="item-category">
-                                <span>@announcement.Category</span>
+                                <span>@(announcement.Category ?? string.Empty)</span>
                             </div>
                             <div class="details">
                                 <p class="location">

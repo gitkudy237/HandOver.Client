@@ -696,6 +696,12 @@ a {
   text-transform: capitalize;
 }
 
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 @media screen and (max-width: 870px) {
   .main-content{
     margin-left: 0;
