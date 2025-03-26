@@ -98,6 +98,9 @@
     [Parameter]
     public int? Id { get; set; }
 
+    [Parameter]
+    public string? UserContact {get; set;}
+
     [SupplyParameterFromForm]
     private CreateItem? _item { get; set; }
 
@@ -154,6 +157,7 @@
 
         if (Id is null)
         {
+            
             _item.Images = _filesBase64;
             _item.ProofOfSale = _proofOfSale;
             if (RequiresProof(_item.CategoryId) && _item.ProofOfSale == null)
@@ -164,6 +168,11 @@
             else
             {
                 await ItemsClient.AddItemAsync(_item);
+                if (!string.IsNullOrWhiteSpace(UserContact))
+                {
+                    NavigationManager.NavigateTo(@"https://wa.me/237680963878?text=Hello%20I%20think%20have%20an%20item%20that%20may%20interest%20you%20Below%20is%20the%20link%20%F0%9F%91%87%20https%3A%2F%2Flocalhost%3A7186%2Fitems%2F2044
+", true);
+                }
                 NavigationManager.NavigateTo("/");
             }
         }

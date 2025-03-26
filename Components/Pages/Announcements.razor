@@ -1,5 +1,7 @@
 ﻿@page "/announcements"
 
+@rendermode InteractiveServer
+
 @inject NavigationManager NavigationManager
 @inject AnnouncementsClient AnnouncementsClient
 
@@ -51,6 +53,7 @@
                                     <i class="fa-solid fa-location-dot icon--primary"></i>
                                     <span>@announcement.Location</span>
                                 </p>
+                                <button class="btn btn--primary" @onclick="() => ShowModal(announcement.Id)">Info</button>
                                 @* <p class="seller">
                     <i class="fa-solid fa-user-circle icon--warning"></i><span>@item.Seller</span>
                     </p> *@
@@ -59,16 +62,29 @@
                     </article>
                 }
             </div>
-            <AnnouncementModal Id="2"/>
+            if (_target != 0){
+                <AnnouncementModal @ref="_announcementModal" Id=@_target/>
+
+            }
         }
     }
 </div>
 
 @code {
     private AnnouncementSummary[]? _announcements;
+    private AnnouncementModal? _announcementModal;
+
+    public int _target = 0;
+    
 
     protected override async Task OnInitializedAsync()
     {
         _announcements = await AnnouncementsClient.GetAnnouncementsAsync();
+    }
+
+    private void ShowModal(int id)
+    {
+        _target = id;
+        _announcementModal?.Show();
     }
 }
