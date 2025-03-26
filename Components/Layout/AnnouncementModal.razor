@@ -109,7 +109,7 @@
                         <div class="modal-body-content">
                             <div class="price-section">
                                 <h3>Price range</h3>
-                                <p class="price-range">@_announcement.MinPrice.ToString("N0") - @_announcement.MaxPrice.ToString("N0")</p>
+                                <p class="price-range">@_announcement.MinPrice.ToString("N0") - @_announcement.MaxPrice.ToString("N0") FCFA</p>
                             </div>
                             <div class="location-section">
                                 <h3>Location</h3>
@@ -122,10 +122,10 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                            <button type="button" class="btn btn--block btn--icon btn--primary">
-                                <i class="fa-solid fa-plus"></i>
-                                <span>Propose an item</span>
-                            </button>
+                            <a href="/additem/237@_announcement.UserContact" class="btn btn--block btn--icon btn--primary">
+                                    <i class="fa-solid fa-plus"></i>
+                                    <span>Propose an item</span>
+                            </a>
                         </div>
                 </div>
             </div>

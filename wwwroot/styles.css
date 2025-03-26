@@ -93,6 +93,7 @@ h3 {
   cursor: pointer;
   /* margin: 3px; */
   transition: background 0.2s ease;
+  text-align: center;
 }
 
 .btn--block {
