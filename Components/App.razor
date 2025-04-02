@@ -8,13 +8,15 @@
     <link rel="stylesheet" href="app.css" />
     <link rel="stylesheet" href="styles.css" />
     <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
+    <RadzenTheme Theme="material" @rendermode="InteractiveServer" />
     <HeadOutlet />
+
 </head>
 
 <body>
     <Routes />
     <script src="_framework/blazor.web.js"></script>
-    <script src="_content/MudBlazor/MudBlazor.min.js"></script>
+    <script src="_content/Radzen.Blazor/Radzen.Blazor.js?v=@(typeof(Radzen.Colors).Assembly.GetName().Version)"></script>
 
     <img src="" />
 </body>

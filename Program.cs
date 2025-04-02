@@ -1,6 +1,7 @@
 using HandOver.Client.Clients;
 using HandOver.Client.Components;
 using MudBlazor.Services;
+using Radzen;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +26,8 @@ builder.Services.AddHttpClient<AnnouncementsClient>(
 
 builder.Services.AddSingleton<UsersClient>();
 
-builder.Services.AddMudServices();
+builder.Services.AddRadzenComponents();
+
 
 var app = builder.Build();
 

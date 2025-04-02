@@ -5,7 +5,53 @@
 
 <PageTitle>Home</PageTitle>
 <section class="main-content">
-    <h2>All articles</h2>
+
+<RadzenStack class="rz-p-0 rz-p-md-12">
+    
+    <RadzenCarousel @ref=carousel @bind-SelectedIndex="@selectedIndex" Auto="true" AllowPaging="true"
+        Style="height: 300px; width: 70%;" PagerPosition="PagerPosition.Bottom" PagerOverlay="true">
+        <Items>
+            <RadzenCarouselItem>
+                <RadzenImage Path="Images/basketball.jpg" class="rz-w-100" />
+            </RadzenCarouselItem>
+            <RadzenCarouselItem>
+                <RadzenImage Path="Images/bicycle.jpg" class="rz-w-100" />
+            </RadzenCarouselItem>
+            <RadzenCarouselItem>
+                <RadzenImage Path="Images/car.jpg" class="rz-w-100" />
+            </RadzenCarouselItem>
+            <RadzenCarouselItem>
+                <RadzenImage Path="Images/clippers.jpg" class="rz-w-100" />
+            </RadzenCarouselItem>
+            <RadzenCarouselItem>
+                <RadzenImage Path="Images/ps4.jpg" class="rz-w-100" />
+            </RadzenCarouselItem>
+            <RadzenCarouselItem>
+                <RadzenImage Path="Images/tricyle.jpg" class="rz-w-100" />
+            </RadzenCarouselItem>
+            
+        </Items>
+    </RadzenCarousel>
+</RadzenStack>
+
+@code {
+    RadzenCarousel carousel;
+    bool allowPaging = true;
+    bool pagerOverlay = true;
+    PagerPosition pagerPosition = PagerPosition.Bottom;
+
+    int selectedIndex;
+}
+
+
+<RadzenButton Click="@ButtonClicked" Text="Hi"></RadzenButton>
+@code {
+  void ButtonClicked()
+  {
+    _title = "Changed the title";
+  }
+}
+    <h2>@_title</h2>
     @if (_items is null)
     {
         <p>Loading...</p>
@@ -58,6 +104,7 @@
 
 @code
 {
+    private string _title  = string.Empty;
     private ItemSummary[]? _items;
     protected override async Task OnInitializedAsync()
     {
