@@ -689,6 +689,7 @@ a {
 
 .main-layout {
   grid-template-columns: 1fr;
+  grid-template-rows: 106px auto;
   grid-template-areas:
     "top-nav"
     "main-content";
