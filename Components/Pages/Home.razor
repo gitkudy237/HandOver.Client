@@ -74,6 +74,10 @@
                                     @item.Name
                                 </h3>
                                 <p class="price">@item.Price.ToString("N0") FCFA</p>
+                                <div class="card-badges">
+                                    <span class="badge badge--verified">Verified</span>
+                                    <span class="badge badge--shipping">Shipping</span>
+                                </div>
                                 <div class="item-category">
                                     <span>@item.Category</span>
                                 </div>
@@ -81,6 +85,10 @@
                                     <p class="location">
                                         <i class="fa-solid fa-location-dot icon--primary"></i>
                                         <span>@item.Location</span>
+                                    </p>
+                                    <p class="post-date">
+                                        <i class="fa-solid fa-calendar icon--primary"></i>
+                                        <span>Today at 14:23</span>
                                     </p>
                                     @* <p class="seller">
                         <i class="fa-solid fa-user-circle icon--warning"></i><span>@item.Seller</span>
