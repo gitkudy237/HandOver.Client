@@ -5,34 +5,46 @@
 
 <PageTitle>Home</PageTitle>
 <section class="main-content">
+<section class="hero">
+            <div class="overlay">
+                <div class="hero-content">
+                    <h2>Item announcements</h2>
+                    <p>
+                        See items people need. You may have them.
+                    </p>
+                    
+                        <RadzenCarousel @ref=carousel @bind-SelectedIndex="@selectedIndex" Auto="true" AllowPaging="true"
+                            Style="height: 500px; width: 70%;" PagerPosition="PagerPosition.Bottom" PagerOverlay="true">
+                            <Items>
+                                <RadzenCarouselItem>
+                                    <RadzenImage Path="Images/basketball.jpg" class="rz-w-100" />
+                                </RadzenCarouselItem>
+                                <RadzenCarouselItem>
+                                    <RadzenImage Path="Images/bicycle.jpg" class="rz-w-100" />
+                                </RadzenCarouselItem>
+                                <RadzenCarouselItem>
+                                    <RadzenImage Path="Images/car.jpg" class="rz-w-100" />
+                                </RadzenCarouselItem>
+                                <RadzenCarouselItem>
+                                    <RadzenImage Path="Images/clippers.jpg" class="rz-w-100" />
+                                </RadzenCarouselItem>
+                                <RadzenCarouselItem>
+                                    <RadzenImage Path="Images/ps4.jpg" class="rz-w-100" />
+                                </RadzenCarouselItem>
+                                <RadzenCarouselItem>
+                                    <RadzenImage Path="Images/tricycle.jpg" class="rz-w-100" />
+                                </RadzenCarouselItem>
+                    
+                            </Items>
+                        </RadzenCarousel>
+                     
+                    <a href="/announcements">
+                        <button class="btn btn--primary">See all announcements</button>
+                    </a>
+                </div>
+            </div>
+        </section>
 
-<RadzenStack class="rz-p-0 rz-p-md-12">
-    
-    <RadzenCarousel @ref=carousel @bind-SelectedIndex="@selectedIndex" Auto="true" AllowPaging="true"
-        Style="height: 300px; width: 70%;" PagerPosition="PagerPosition.Bottom" PagerOverlay="true">
-        <Items>
-            <RadzenCarouselItem>
-                <RadzenImage Path="Images/basketball.jpg" class="rz-w-100" />
-            </RadzenCarouselItem>
-            <RadzenCarouselItem>
-                <RadzenImage Path="Images/bicycle.jpg" class="rz-w-100" />
-            </RadzenCarouselItem>
-            <RadzenCarouselItem>
-                <RadzenImage Path="Images/car.jpg" class="rz-w-100" />
-            </RadzenCarouselItem>
-            <RadzenCarouselItem>
-                <RadzenImage Path="Images/clippers.jpg" class="rz-w-100" />
-            </RadzenCarouselItem>
-            <RadzenCarouselItem>
-                <RadzenImage Path="Images/ps4.jpg" class="rz-w-100" />
-            </RadzenCarouselItem>
-            <RadzenCarouselItem>
-                <RadzenImage Path="Images/tricyle.jpg" class="rz-w-100" />
-            </RadzenCarouselItem>
-            
-        </Items>
-    </RadzenCarousel>
-</RadzenStack>
 
 @code {
     RadzenCarousel? carousel;

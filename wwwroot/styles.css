@@ -762,6 +762,42 @@ a {
   .item-container {
     gap: 0;
   }
+} 
+
+.hero {
+  background-image: url(Images/bg1.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  position: relative;
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin: auto;
+  text-align: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.hero-content h2,
+.hero-content p {
+  width: 60%;
+  color: white;
 }
 
 
