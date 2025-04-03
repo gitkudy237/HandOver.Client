@@ -770,7 +770,7 @@ a {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;
+  height: calc(100vh - 106px);
   position: relative;
 }
 
@@ -795,9 +795,13 @@ a {
   padding: 20px;
 }
 
+.hero-text {
+  text-align: center;
+  width: 60%;
+}
+
 .hero-content h2,
 .hero-content p {
-  width: 60%;
   color: white;
 }
 

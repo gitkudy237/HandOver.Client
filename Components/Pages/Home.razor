@@ -8,10 +8,12 @@
 <section class="hero">
             <div class="overlay">
                 <div class="hero-content">
-                    <h2>Item announcements</h2>
-                    <p>
-                        See items people need. You may have them.
-                    </p>
+                    <div class="hero-text">
+                        <h2>Item announcements</h2>
+                        <p>
+                            See items people need. You may have them.
+                        </p>
+                    </div>
                     
                         <RadzenCarousel @ref=carousel @bind-SelectedIndex="@selectedIndex" Auto="true" AllowPaging="true"
                             Style="height: 500px; width: 70%;" PagerPosition="PagerPosition.Bottom" PagerOverlay="true">
