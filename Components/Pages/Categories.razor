@@ -6,7 +6,9 @@
 <PageTitle>Categories</PageTitle>
 
 <section class="main-content">
-    <h2>@_category?.Name</h2>
+    <div class="main-content-header">
+        <h2>@_category?.Name</h2>
+    </div>
     @if (_categoryItems is null)
     {
         <p>Loading...</p>
