@@ -636,6 +636,10 @@ a {
   border-top: 0;
   padding: 0.6rem 1.2rem;
   padding-bottom: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  background: var(--color-white);
 }
 
 .top-section {
