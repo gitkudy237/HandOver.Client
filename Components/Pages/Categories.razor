@@ -68,6 +68,8 @@
     private ItemSummary[] _categoryItems = [];
     private Category? _category;
 
+    protected override void OnInitialized(){}
+
     protected async override Task OnParametersSetAsync()
     {
         if (Id is null)

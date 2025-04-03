@@ -711,6 +711,7 @@ a {
   grid-area: main-content;
   background: var(--color-bg-white);
   margin-top: 49px;
+  overflow-y: scroll;
 }
 
 .main-content-header {
@@ -718,7 +719,8 @@ a {
   top: 106px;
   z-index: 100;
   width: 100%;
-  background-color: var(--color-bg-white);
+  background-color: var(--color-white);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
 }
 
 .main-content h2 {
@@ -735,6 +737,8 @@ a {
 .item-container {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  
 }
 
 .category-preview {
