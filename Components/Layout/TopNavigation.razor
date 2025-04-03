@@ -1,31 +1,109 @@
 ﻿@rendermode InteractiveServer
+
+@inject CategoriesClient CategoriesClient
+
 <nav class="top-nav flex">
-    <a href="/" class="logo-section"><span class="logo">HandOver</span></a>
-    <div class="actions-section">
-        <a href="/additem">
-            <button class="btn btn--block btn--icon btn--primary">
-            <i class="fa-solid fa-plus"></i> Add an Item
-            </button>
-        </a>
-        @* <div class="icon-section flex">
-            <span class="icon-group icon-group--white">
-                <i class="icon--green fa-regular fa-bell"></i>
-            </span>
-            <span class="icon-group icon-group--white">
-                <i class="icon--green fa-regular fa-comments"></i>
-            </span>
-        </div> *@
-        <div class="action-section">
-            <a href="" class="btn btn--white">Sign in</a>
-            <a href="" class="btn btn--outlined btn--outlined-primary">Sign up</a>
-        </div>
+    <div class="top-section flex">
+        <a href="/" class="logo-section"><span class="logo">HandOver</span></a>
+        <SearchBar/>
+        <div class="actions-section">
+            <a href="/additem">
+                <button class="btn btn--block btn--icon btn--primary">
+                <i class="fa-solid fa-plus"></i> Add an Item
+                </button>
+            </a>
+            @* <div class="icon-section flex">
+                <span class="icon-group icon-group--white">
+                    <i class="icon--green fa-regular fa-bell"></i>
+                </span>
+                <span class="icon-group icon-group--white">
+                    <i class="icon--green fa-regular fa-comments"></i>
+                </span>
+            </div> *@
+            <div class="action-section">
+                <a href="" class="btn btn--white">Sign in</a>
+                <a href="" class="btn btn--outlined btn--outlined-primary">Sign up</a>
+            </div>
         
-        <label for="toggler-input" class="nav-toggler">
-            <span class="icon-group icon-group--white "><i class="fa-solid fa-bars icon--large icon--bars"></i></span>
-        </label>
+            <label for="toggler-input" class="nav-toggler">
+                <span class="icon-group icon-group--white "><i class="fa-solid fa-bars icon--large icon--bars"></i></span>
+            </label>
+        </div>
+    </div>
+    <div class="bottom-section">
+        <ul class="nav-list flex">
+            <li class="nav-item">
+                <a href="/"><span class="icon-group icon-group--primary"><i class="fa-solid fa-house"></i></span>Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/announcements"><span class="icon-group icon-group--primary"><i class="fa-solid fa-bullhorn"></i></span>Item announcements</a>
+            </li>
+            <li class="nav-item dropable">
+                <div class="dropdown-heading">
+                    <span class="icon-group icon-group--primary"><i class="fa-solid fa-icons"></i></span>Categories <i class="fa-solid fa-caret-down"></i>
+                </div>
+                <ul class="dropdown-container">
+                    @if (_categories is null)
+                    {
+
+                    }
+                    else
+                    {
+                        @foreach (var category in _categories!)
+                        {
+                            <li class="dropdown-item">
+                            <a href=@GetCategoryRoute(category)>
+                                <span class="@_icongroupColors[category.Id]"><i class=@_categoryIcons[category.Id]></i></span>
+                                <span style="text-transform:capitalize">@category.Name</span>
+                            </a>
+                            </li>
+                        }
+
+                    }
+                    
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="/listings"><span class="icon-group icon-group--primary"><i class="fa-solid fa-tag"></i></span>My listings</a>
+            </li>
+        </ul>
     </div>
 </nav>
 
 @code {
+  private Category[]? _categories;
+  private Dictionary<int, string> _categoryIcons = new Dictionary<int, string>()
+    {
+      [1] = "fa-solid fa-inbox",
+      [2] = "fa-solid fa-car",
+      [3] = "fa-solid fa-mobile",
+      [4] = "fa-solid fa-gamepad",
+      [5] = "fa-solid fa-shirt",
+      [6] = "fa-solid fa-futbol",
+      [7] = "fa-solid fa-music",
+      [8] = "fa-solid fa-plane",
+      [9] = "fa-solid fa-house",
+    };
+  
+  private Dictionary<int, string> _icongroupColors = new Dictionary<int, string>()
+    {
+      [1] = "icon-group icon-group--primary",
+      [2] = "icon-group icon-group--kaki",
+      [3] = "icon-group icon-group--kaki",
+      [4] = "icon-group icon-group--deepblue",
+      [5] = "icon-group icon-group--primary",
+      [6] = "icon-group icon-group--error",
+      [7] = "icon-group icon-group--orange",
+      [8] = "icon-group icon-group--primary",
+      [9] = "icon-group icon-group--kaki",
+    };
+
+  protected async override Task OnInitializedAsync()
+  {
+    _categories = await CategoriesClient.GetCategoriesAsync();
+  }
+
+  public string GetCategoryRoute(Category category)
+  => (category is null) ? "" : $"/category/{category.Id}";
 
 }

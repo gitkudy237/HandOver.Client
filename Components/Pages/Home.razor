@@ -35,7 +35,7 @@
 </RadzenStack>
 
 @code {
-    RadzenCarousel carousel;
+    RadzenCarousel? carousel;
     bool allowPaging = true;
     bool pagerOverlay = true;
     PagerPosition pagerPosition = PagerPosition.Bottom;
@@ -44,14 +44,8 @@
 }
 
 
-<RadzenButton Click="@ButtonClicked" Text="Hi"></RadzenButton>
-@code {
-  void ButtonClicked()
-  {
-    _title = "Changed the title";
-  }
-}
-    <h2>@_title</h2>
+
+    <h2>All items</h2>
     @if (_items is null)
     {
         <p>Loading...</p>
