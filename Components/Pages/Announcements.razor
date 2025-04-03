@@ -8,11 +8,15 @@
 <PageTitle>HandOver | Announcements</PageTitle>
 
 <div class="main-content">
-    <div class="header-container">
-        <h2>Announcements</h2>
-        <a href="/createannouncement">
-            <button class="btn btn--primary">Create new</button>
-        </a>
+    <div class="main-content-header">
+        <div class="header-container">
+            
+            <h2>Announcements</h2>
+            <a href="/createannouncement">
+                <button class="btn btn--primary">Create new</button>
+            </a>
+
+        </div>
 
     </div>
     @if (_announcements is null)
@@ -53,7 +57,9 @@
                                     <i class="fa-solid fa-location-dot icon--primary"></i>
                                     <span>@announcement.Location</span>
                                 </p>
-                                <button class="btn btn--primary" @onclick="() => ShowModal(announcement.Id)">Info</button>
+                                <button class="btn btn--icon btn--primary" @onclick="() => ShowModal(announcement.Id)">
+                                    <i class="fa-solid fa-info-circle"></i> Info
+                                </button>
                                 @* <p class="seller">
                     <i class="fa-solid fa-user-circle icon--warning"></i><span>@item.Seller</span>
                     </p> *@
