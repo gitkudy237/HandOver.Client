@@ -51,6 +51,11 @@
                 </InputSelect>
                 <ValidationMessage For="() => _item.CategoryId" />
             </div>
+            <div>
+                <label for="duration">Duration of use (years):*</label>
+                <InputNumber class="input" id="duration" @bind-Value="_item.DurationOfUseInYears" />
+                <ValidationMessage For="() => _item.DurationOfUseInYears" />
+            </div>
             <div style="margin-bottom: 15px;">
                 <label for="">Item condition:*</label>
                 <div class="radio-container">
