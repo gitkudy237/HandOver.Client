@@ -50,10 +50,6 @@
 
 @code {
     RadzenCarousel? carousel;
-    bool allowPaging = true;
-    bool pagerOverlay = true;
-    PagerPosition pagerPosition = PagerPosition.Bottom;
-
     int selectedIndex;
 }
 
@@ -96,7 +92,7 @@
                                         </p>
                                         <p class="post-date">
                                             <i class="fa-solid fa-calendar icon--primary"></i>
-                                            <span>Today at 14:23</span>
+                                            <span>@item.PostedOn.ToShortDateString() at @item.PostedOn.ToShortTimeString()</span>
                                         </p>
                                         @* <p class="seller">
                             <i class="fa-solid fa-user-circle icon--warning"></i><span>@item.Seller</span>
