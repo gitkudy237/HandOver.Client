@@ -80,7 +80,10 @@
                                     <p class="price">@item.Price.ToString("N0") FCFA</p>
                                     <div class="card-badges">
                                         <span class="badge badge--verified">Verified</span>
-                                        <span class="badge badge--shipping">Shipping</span>
+                                        @if (item.CanBeDelivered)
+                                        {
+                                            <span class="badge badge--shipping">Shipping</span>
+                                        }
                                     </div>
                                     <div class="item-category">
                                         <span>@item.Category</span>

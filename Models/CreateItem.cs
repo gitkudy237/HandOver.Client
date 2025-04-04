@@ -23,6 +23,7 @@ public class CreateItem
 
     [Required][Range(1, 30, ErrorMessage ="Duration must be between 1 and 30 years")]
     public int DurationOfUseInYears { get; set; }
+    public bool CanBeDelivered { get; set; }
     public string? Description { get; set; }
     public List<ImageFile>? Images { get; set; }
     public ImageFile? ProofOfSale { get; set; }

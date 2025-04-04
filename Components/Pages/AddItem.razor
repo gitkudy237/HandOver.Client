@@ -75,6 +75,10 @@
                 <ValidationMessage For="() => _item.Price" />
             </div>
             <div>
+                <InputCheckbox id="delivery" @bind-Value="_item.CanBeDelivered"/>
+                <label for="delivery">Can be delivered</label>
+            </div>
+            <div>
                 <label for="">Upload images:</label>
                 <InputFile OnChange="OnChange" multiple accept="image/jpeg, image/png, image/gif" id="inputFile"
                     @bind-Value="@_item.Images" />

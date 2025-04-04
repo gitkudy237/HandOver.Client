@@ -9,4 +9,5 @@ public class ItemSummary
     public required string Location { get; set; }
     public int Price { get; set; }
     public DateTime PostedOn { get; set; }
+    public bool CanBeDelivered { get; set; }
 }
