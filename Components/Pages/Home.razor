@@ -2,6 +2,7 @@
 @using HandOver.Client.Helpers
 @rendermode InteractiveServer
 @inject ItemsClient ItemsClient
+@inject CategoriesClient CategoriesClient
 
 <PageTitle>Home</PageTitle>
 <section class="main-content" style="margin-top: 0;">
@@ -55,280 +56,70 @@
 
 
 
-    @if (_items is null)
+    @if (_items is null || _categories is null)
     {
         <p>Loading...</p>
     }
     else
     {
         <h2>All items</h2>
-        <section class="category-preview">
-            <h3 class="category-heading">Devices</h3>
-            <div class="preview-container">
-                <div class="item-container">
-                    @foreach (var item in _items)
-                    {
-                        <a href="/items/@item.Id">
-                            <article class="card">
-                                <div class="card-header">
-                                    <img src="@item.ImageUrl" alt="@item.Name" />
-                                </div>
-                                <div class="card-body flex">
-                                    <h3 class="card-title">
-                                        @item.Name
-                                    </h3>
-                                    <p class="price">@item.Price.ToString("N0") FCFA</p>
-                                    <div class="card-badges">
-                                        <span class="badge badge--verified">Verified</span>
-                                        @if (item.CanBeDelivered)
-                                        {
-                                            <span class="badge badge--shipping">Shipping</span>
-                                        }
-                                    </div>
-                                    <div class="item-category">
-                                        <span>@item.Category</span>
-                                    </div>
-                                    <div class="details">
-                                        <p class="location">
-                                            <i class="fa-solid fa-location-dot icon--primary"></i>
-                                            <span>@item.Location</span>
-                                        </p>
-                                        <p class="post-date">
-                                            <i class="fa-solid fa-calendar icon--primary"></i>
-                                            <span>@item.PostedOn.ToShortDateString() at @item.PostedOn.ToShortTimeString()</span>
-                                        </p>
-                                        @* <p class="seller">
-                            <i class="fa-solid fa-user-circle icon--warning"></i><span>@item.Seller</span>
-                            </p> *@
-                                    </div>
-                                </div>
-                            </article>
-                        </a>
-                    }
-                </div>
-                <button class="btn btn--primary">View more</button>
-            </div>
-        </section>
-        <section class="category-preview">
-            <h3 class="category-heading">Entertainment</h3>
-            <div class="preview-container">
-                <div class="item-container">
-                    @foreach (var item in _items)
-                    {
-                        <a href="/items/@item.Id">
-                            <article class="card">
-                                <div class="card-header">
-                                    <img src="@item.ImageUrl" alt="@item.Name" />
-                                </div>
-                                <div class="card-body flex">
-                                    <h3 class="card-title">
-                                        @item.Name
-                                    </h3>
-                                    <p class="price">@item.Price.ToString("N0") FCFA</p>
-                                    <div class="card-badges">
-                                        <span class="badge badge--verified">Verified</span>
-                                        <span class="badge badge--shipping">Shipping</span>
-                                    </div>
-                                    <div class="item-category">
-                                        <span>@item.Category</span>
-                                    </div>
-                                    <div class="details">
-                                        <p class="location">
-                                            <i class="fa-solid fa-location-dot icon--primary"></i>
-                                            <span>@item.Location</span>
-                                        </p>
-                                        <p class="post-date">
-                                            <i class="fa-solid fa-calendar icon--primary"></i>
-                                            <span>Today at 14:23</span>
-                                        </p>
-                                        @* <p class="seller">
-                            <i class="fa-solid fa-user-circle icon--warning"></i><span>@item.Seller</span>
-                            </p> *@
-                                    </div>
-                                </div>
-                            </article>
-                        </a>
-                    }
-                </div>
-                <button class="btn btn--primary">View more</button>
-            </div>
-        </section>
-        <section class="category-preview">
-            <h3 class="category-heading">Vehicles</h3>
-            <div class="preview-container">
-                <div class="item-container">
-                    @foreach (var item in _items)
-                    {
-                        <a href="/items/@item.Id">
-                            <article class="card">
-                                <div class="card-header">
-                                    <img src="@item.ImageUrl" alt="@item.Name" />
-                                </div>
-                                <div class="card-body flex">
-                                    <h3 class="card-title">
-                                        @item.Name
-                                    </h3>
-                                    <p class="price">@item.Price.ToString("N0") FCFA</p>
-                                    <div class="card-badges">
-                                        <span class="badge badge--verified">Verified</span>
-                                        <span class="badge badge--shipping">Shipping</span>
-                                    </div>
-                                    <div class="item-category">
-                                        <span>@item.Category</span>
-                                    </div>
-                                    <div class="details">
-                                        <p class="location">
-                                            <i class="fa-solid fa-location-dot icon--primary"></i>
-                                            <span>@item.Location</span>
-                                        </p>
-                                        <p class="post-date">
-                                            <i class="fa-solid fa-calendar icon--primary"></i>
-                                            <span>Today at 14:23</span>
-                                        </p>
-                                        @* <p class="seller">
-                            <i class="fa-solid fa-user-circle icon--warning"></i><span>@item.Seller</span>
-                            </p> *@
-                                    </div>
-                                </div>
-                            </article>
-                        </a>
-                    }
-                </div>
-                <button class="btn btn--primary">View more</button>
-            </div>
-        </section>
-        <section class="category-preview">
-            <h3 class="category-heading">Toys</h3>
-            <div class="preview-container">
-                <div class="item-container">
-                    @foreach (var item in _items)
-                    {
-                        <a href="/items/@item.Id">
-                            <article class="card">
-                                <div class="card-header">
-                                    <img src="@item.ImageUrl" alt="@item.Name" />
-                                </div>
-                                <div class="card-body flex">
-                                    <h3 class="card-title">
-                                        @item.Name
-                                    </h3>
-                                    <p class="price">@item.Price.ToString("N0") FCFA</p>
-                                    <div class="card-badges">
-                                        <span class="badge badge--verified">Verified</span>
-                                        <span class="badge badge--shipping">Shipping</span>
-                                    </div>
-                                    <div class="item-category">
-                                        <span>@item.Category</span>
-                                    </div>
-                                    <div class="details">
-                                        <p class="location">
-                                            <i class="fa-solid fa-location-dot icon--primary"></i>
-                                            <span>@item.Location</span>
-                                        </p>
-                                        <p class="post-date">
-                                            <i class="fa-solid fa-calendar icon--primary"></i>
-                                            <span>Today at 14:23</span>
-                                        </p>
-                                        @* <p class="seller">
-                            <i class="fa-solid fa-user-circle icon--warning"></i><span>@item.Seller</span>
-                            </p> *@
-                                    </div>
-                                </div>
-                            </article>
-                        </a>
-                    }
-                </div>
-                <button class="btn btn--primary">View more</button>
-            </div>
-        </section>
-        <section class="category-preview">
-            <h3 class="category-heading">Music</h3>
-            <div class="preview-container">
-                <div class="item-container">
-                    @foreach (var item in _items)
-                    {
-                        <a href="/items/@item.Id">
-                            <article class="card">
-                                <div class="card-header">
-                                    <img src="@item.ImageUrl" alt="@item.Name" />
-                                </div>
-                                <div class="card-body flex">
-                                    <h3 class="card-title">
-                                        @item.Name
-                                    </h3>
-                                    <p class="price">@item.Price.ToString("N0") FCFA</p>
-                                    <div class="card-badges">
-                                        <span class="badge badge--verified">Verified</span>
-                                        <span class="badge badge--shipping">Shipping</span>
-                                    </div>
-                                    <div class="item-category">
-                                        <span>@item.Category</span>
-                                    </div>
-                                    <div class="details">
-                                        <p class="location">
-                                            <i class="fa-solid fa-location-dot icon--primary"></i>
-                                            <span>@item.Location</span>
-                                        </p>
-                                        <p class="post-date">
-                                            <i class="fa-solid fa-calendar icon--primary"></i>
-                                            <span>Today at 14:23</span>
-                                        </p>
-                                        @* <p class="seller">
-                            <i class="fa-solid fa-user-circle icon--warning"></i><span>@item.Seller</span>
-                            </p> *@
-                                    </div>
-                                </div>
-                            </article>
-                        </a>
-                    }
-                </div>
-                <button class="btn btn--primary">View more</button>
-            </div>
-        </section>
-        <section class="category-preview">
-            <h3 class="category-heading">Clothing</h3>
-            <div class="preview-container">
-                <div class="item-container">
-                    @foreach (var item in _items)
-                    {
-                        <a href="/items/@item.Id">
-                            <article class="card">
-                                <div class="card-header">
-                                    <img src="@item.ImageUrl" alt="@item.Name" />
-                                </div>
-                                <div class="card-body flex">
-                                    <h3 class="card-title">
-                                        @item.Name
-                                    </h3>
-                                    <p class="price">@item.Price.ToString("N0") FCFA</p>
-                                    <div class="card-badges">
-                                        <span class="badge badge--verified">Verified</span>
-                                        <span class="badge badge--shipping">Shipping</span>
-                                    </div>
-                                    <div class="item-category">
-                                        <span>@item.Category</span>
-                                    </div>
-                                    <div class="details">
-                                        <p class="location">
-                                            <i class="fa-solid fa-location-dot icon--primary"></i>
-                                            <span>@item.Location</span>
-                                        </p>
-                                        <p class="post-date">
-                                            <i class="fa-solid fa-calendar icon--primary"></i>
-                                            <span>Today at 14:23</span>
-                                        </p>
-                                        @* <p class="seller">
-                            <i class="fa-solid fa-user-circle icon--warning"></i><span>@item.Seller</span>
-                            </p> *@
-                                    </div>
-                                </div>
-                            </article>
-                        </a>
-                    }
-                </div>
-                <button class="btn btn--primary">View more</button>
-            </div>
-        </section>
+        foreach (var category in _categories)
+        {
+            var categoryItems = _items.Where(i => string.Equals(i.Category, category.Name)).ToArray();
+            if (categoryItems.Length != 0)
+            {
+                
+                <section class="category-preview">
+                    <h3 class="category-heading">@category.Name</h3>
+                    <div class="preview-container">
+                        <div class="item-container">
+                            @foreach (var item in categoryItems)
+                            {
+                                <a href="/items/@item.Id">
+                                    <article class="card">
+                                        <div class="card-header">
+                                            <img src="@item.ImageUrl" alt="@item.Name" />
+                                        </div>
+                                        <div class="card-body flex">
+                                            <h3 class="card-title">
+                                                @item.Name
+                                            </h3>
+                                            <p class="price">@item.Price.ToString("N0") FCFA</p>
+                                            <div class="card-badges">
+                                                <span class="badge badge--verified">Verified</span>
+                                                @if (item.CanBeDelivered)
+                                                {
+                                                    <span class="badge badge--shipping">Shipping</span>
+                                                }
+                                            </div>
+                                            <div class="item-category">
+                                                <span>@item.Category</span>
+                                            </div>
+                                            <div class="details">
+                                                <p class="location">
+                                                    <i class="fa-solid fa-location-dot icon--primary"></i>
+                                                    <span>@item.Location</span>
+                                                </p>
+                                                <p class="post-date">
+                                                    <i class="fa-solid fa-calendar icon--primary"></i>
+                                                    <span>@item.PostedOn.ToShortDateString() at @item.PostedOn.ToShortTimeString()</span>
+                                                </p>
+                                                @* <p class="seller">
+                                    <i class="fa-solid fa-user-circle icon--warning"></i><span>@item.Seller</span>
+                                    </p> *@
+                                            </div>
+                                        </div>
+                                    </article>
+                                </a>
+                            }
+                        </div>
+                        <a href="/category/@category.Id" class="btn btn--primary">View more</a>
+                    </div>
+                </section>
+            }
+            
+        }
+        
         if (_items.Length == 0)
         {
             <NoItemMessage 
@@ -348,8 +139,11 @@
 {
     private string _title  = string.Empty;
     private ItemSummary[]? _items;
+    private Category[]? _categories;
+
     protected override async Task OnInitializedAsync()
     {
+        _categories = await CategoriesClient.GetCategoriesAsync();
         _items = await ItemsClient.GetItemsAsync();
         Array.Sort(_items, new ItemIdComparer());
     }
