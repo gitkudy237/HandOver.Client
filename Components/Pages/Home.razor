@@ -3,6 +3,7 @@
 @rendermode InteractiveServer
 @inject ItemsClient ItemsClient
 @inject CategoriesClient CategoriesClient
+@inject AnnouncementsClient AnnouncementsClient
 
 <PageTitle>Home</PageTitle>
 <section class="main-content" style="margin-top: 0;">
@@ -17,12 +18,31 @@
                     </div>
                     
                         <RadzenCarousel @ref=carousel @bind-SelectedIndex="@selectedIndex" Auto="true" AllowPaging="true"
-                            Style="height: 500px; width: 70%;" PagerPosition="PagerPosition.Bottom" PagerOverlay="true">
+                            Style="height: 500px; width: 70%;" PagerPosition="PagerPosition.Bottom" PagerOverlay="true" Interval="8000">
                             <Items>
-                                <RadzenCarouselItem>
-                                    <RadzenImage Path="Images/basketball.jpg" class="rz-w-100" />
-                                </RadzenCarouselItem>
-                                <RadzenCarouselItem>
+                                @if (_announcements is null)
+                                {
+
+                                }else{
+                                    foreach(var announcement in _announcements)
+                                    {
+
+                                        <RadzenCarouselItem>
+                                            <article class="announcement-preview-item">
+                                                <img src="@announcement.ImageUrl" />
+                                                <div class="overlay carousel-overlay">
+                                                    <h2>@announcement.Name</h2>
+                                                    <p><i class="fa-solid fa-location-dot icon--white"></i> @announcement.Location</p>
+                                                    <p class="item-price">
+                                                        <span>@announcement.MinPrice.ToString("N0")</span> -
+                                                        <span>@announcement.MaxPrice.ToString("N0")</span> FCFA
+                                                    </p>
+                                                </div>
+                                            </article>
+                                        </RadzenCarouselItem>
+                                    }
+                                }
+                                @* <RadzenCarouselItem>
                                     <RadzenImage Path="Images/bicycle.jpg" class="rz-w-100" />
                                 </RadzenCarouselItem>
                                 <RadzenCarouselItem>
@@ -36,7 +56,7 @@
                                 </RadzenCarouselItem>
                                 <RadzenCarouselItem>
                                     <RadzenImage Path="Images/tricycle.jpg" class="rz-w-100" />
-                                </RadzenCarouselItem>
+                                </RadzenCarouselItem> *@
                     
                             </Items>
                         </RadzenCarousel>
@@ -140,9 +160,11 @@
     private string _title  = string.Empty;
     private ItemSummary[]? _items;
     private Category[]? _categories;
+    private AnnouncementSummary[]? _announcements;
 
     protected override async Task OnInitializedAsync()
     {
+        _announcements = await AnnouncementsClient.GetAnnouncementsAsync();
         _categories = await CategoriesClient.GetCategoriesAsync();
         _items = await ItemsClient.GetItemsAsync();
         Array.Sort(_items, new ItemIdComparer());
