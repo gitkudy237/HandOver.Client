@@ -52,8 +52,12 @@ public class ItemsClient(HttpClient httpClient)
     public async Task<ItemSummary[]> SearchItemsWithKeyWord(string searchString)
         => await httpClient.GetFromJsonAsync<ItemSummary[]>($"items/search/{searchString}") ?? [];
 
-    public async Task AddItemAsync(CreateItem item)
-        => await httpClient.PostAsJsonAsync("items", item);
+    public async Task<int> AddItemAsync(CreateItem item)
+    {
+        var response = await httpClient.PostAsJsonAsync("items", item);
+        var responseBody = await response.Content.ReadFromJsonAsync<int>();
+        return responseBody;
+    }
 
     public async Task UpdateItemAsync(int id, CreateItem updatedItem)
         => await httpClient.PutAsJsonAsync($"items/{id}", updatedItem);
