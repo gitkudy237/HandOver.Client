@@ -13,7 +13,9 @@
 <PageTitle>@_heading</PageTitle>
 
 <div class="main-content">
-    <h2>@_heading</h2>
+    <div class="main-content-header">
+        <h2>@_heading</h2>
+    </div>
     @if (_categories is null 
         || _conditions is null
         || _item is null)
@@ -96,7 +98,7 @@
                 <InputTextArea class="input" id="description" @bind-Value="_item.Description" />
             </div>
 
-            <input class="btn btn--block btn--primary" type="submit" value="@_actionText" />
+            <input class="btn btn--block btn--primary" type="submit" value="@_actionText" disabled = "@_disabled"/>
         </EditForm>
     }
 </div>
@@ -122,6 +124,7 @@
     private string _heading = "Add new";
     private string _actionText = "Submit";
     private string _error = string.Empty;
+    private bool _disabled;
 
     protected async override Task OnParametersSetAsync()
     {
@@ -162,6 +165,7 @@
 
     public async Task HandleSubmitAsync()
     {
+        _disabled = true;
         ArgumentNullException.ThrowIfNull(_item);
 
         if (Id is null)

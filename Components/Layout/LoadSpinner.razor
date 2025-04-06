@@ -1,0 +1,24 @@
+﻿
+<style>
+    .spin-container {
+        position: fixed;
+        z-index: 1050;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: scroll;
+        background-color: rgba(255, 255, 255, .3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<div class="spin-container">
+    <RadzenProgressBarCircular ProgressBarStyle="ProgressBarStyle.Success" Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+</div>
+
+@code {
+
+}
