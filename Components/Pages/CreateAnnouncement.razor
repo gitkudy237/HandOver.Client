@@ -4,6 +4,8 @@
 @inject AnnouncementsClient AnnouncementsClient
 @inject NavigationManager NavigationManager
 
+@rendermode InteractiveServer
+
 <PageTitle>Announcement | New</PageTitle>
 
 <div class="main-content">
@@ -59,8 +61,8 @@
             </div>
             <div>
                 <label for="">Upload images(optional):</label>
-                <InputFile OnChange="OnChangeSingle" multiple accept="image/jpeg, image/png, image/gif" id="inputFile"
-                @bind-Value="@_announcement.Image" />
+                <InputFile OnChange="OnChangeSingle" multiple accept="image/jpeg, image/png, image/gif" id="image"
+                    />
             </div>
             <div>
                 <label for="description">Description:</label>
@@ -85,21 +87,36 @@
     private async Task OnChangeSingle(InputFileChangeEventArgs e)
     {
         var file = e.File;
-        var buffer = new byte[file.Size];
-        using (var stream = file.OpenReadStream())
+        byte[] buffer;
+
+        try
         {
-            await stream.ReadAsync(buffer);
+            using (var stream = file.OpenReadStream())
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await stream.CopyToAsync(memoryStream); // Copy stream to MemoryStream
+                    buffer = memoryStream.ToArray(); // Convert to byte array
+                }
+            }
+
+            _imageFile = new ImageFile
+            {
+                Base64Data = Convert.ToBase64String(buffer),
+                ContentType = file.ContentType,
+                FileName = file.Name
+            };
+
+            _announcement.Image = _imageFile;
         }
-
-        _imageFile = new ImageFile
+        catch (Exception ex)
         {
-            Base64Data = Convert.ToBase64String(buffer),
-            ContentType = file.ContentType,
-            FileName = file.Name
-        };
-
+            // Handle exceptions (e.g., log or show user-friendly error messages)
+            Console.WriteLine($"Error processing file: {ex.Message}");
+        }
     }
-    private async Task HandleSubmitAsync(EditContext args)
+
+    private async Task HandleSubmitAsync()
     {
         await AnnouncementsClient.AddAnnouncementAsync(_announcement);
         NavigationManager.NavigateTo("/");
