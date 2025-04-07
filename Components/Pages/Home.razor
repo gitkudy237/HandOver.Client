@@ -22,7 +22,7 @@
                             <Items>
                                 @if (_announcements is null)
                                 {
-
+                                    <LoadSpinner />
                                 }else{
                                     foreach(var announcement in _announcements)
                                     {
@@ -78,7 +78,7 @@
 
     @if (_items is null || _categories is null)
     {
-        <p>Loading...</p>
+        <LoadSpinner />
     }
     else
     {
@@ -140,7 +140,7 @@
             
         }
 
-        <LoadSpinner />
+        
         
         if (_items.Length == 0)
         {
@@ -165,7 +165,7 @@
     private AnnouncementSummary[]? _announcements;
 
     protected override async Task OnInitializedAsync()
-    {
+    {  
         _announcements = await AnnouncementsClient.GetAnnouncementsAsync();
         _categories = await CategoriesClient.GetCategoriesAsync();
         _items = await ItemsClient.GetItemsAsync();

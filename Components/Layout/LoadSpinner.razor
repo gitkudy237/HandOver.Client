@@ -1,24 +1,56 @@
-﻿
+﻿@rendermode InteractiveServer
 <style>
     .spin-container {
-        position: fixed;
+        position: sticky;
         z-index: 1050;
         left: 0;
         top: 0;
         width: 100%;
         height: 100%;
         overflow: scroll;
-        background-color: rgba(255, 255, 255, .3);
         display: flex;
         justify-content: center;
         align-items: center;
     }
+
+    .background {
+        background-color: rgba(255, 255, 255, .3);
+    }
 </style>
 
-<div class="spin-container">
-    <RadzenProgressBarCircular ProgressBarStyle="ProgressBarStyle.Success" Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
-</div>
+@if (_isVisible)
+{
+    <span class="spin-container @_backgroundClass">
+        <RadzenProgressBarCircular ProgressBarStyle="ProgressBarStyle.Success" Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+    </span>
+}
 
 @code {
 
+    [Parameter]
+    public bool Background {get; set;}
+    private bool _isVisible = true;
+    private string? _backgroundClass;
+
+    protected override void OnParametersSet()
+    {
+        if (Background){
+            _backgroundClass = "background";
+            return;
+        }
+
+        _backgroundClass = string.Empty;  
+    }
+
+    public void Show()
+    {
+        _isVisible = true;
+        StateHasChanged();
+    }
+
+    public void Hide()
+    {
+        _isVisible = true;
+        StateHasChanged();
+    }
 }

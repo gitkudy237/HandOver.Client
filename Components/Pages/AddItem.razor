@@ -98,7 +98,8 @@
                 <InputTextArea class="input" id="description" @bind-Value="_item.Description" />
             </div>
 
-            <input class="btn btn--block btn--primary" type="submit" value="@_actionText" disabled = "@_disabled"/>
+            <input class="btn btn--block btn--primary" type="submit" 
+                value="@_actionText" disabled="@_disabled"/>
         </EditForm>
     }
 </div>
@@ -125,6 +126,7 @@
     private string _actionText = "Submit";
     private string _error = string.Empty;
     private bool _disabled;
+    private LoadSpinner? _spinner;
 
     protected async override Task OnParametersSetAsync()
     {
@@ -166,6 +168,7 @@
     public async Task HandleSubmitAsync()
     {
         _disabled = true;
+        _actionText = "Please wait...";
         ArgumentNullException.ThrowIfNull(_item);
 
         if (Id is null)
@@ -181,6 +184,7 @@
             else
             {
                 var createdItemAsResponse = await ItemsClient.AddItemAsync(_item);
+                
                 if (!string.IsNullOrWhiteSpace(UserContact))
                 {
                     NavigationManager.NavigateTo($@"https://wa.me/{UserContact}?text=Hello%20I%20think%20have%20an%20item%20that%20may%20interest%20you%20Below%20is%20the%20link%20%F0%9F%91%87%20https%3A%2F%2Flocalhost%3A7186%2Fitems%2F{createdItemAsResponse}
@@ -246,6 +250,8 @@
         return false;
     }
 
-
+    private void ShowSpinner(){
+        _spinner?.Show();
+    }
 
 }
