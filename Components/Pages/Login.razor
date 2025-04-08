@@ -1,0 +1,96 @@
+﻿@page "/login"
+
+@inject NavigationManager NavigationManager
+
+@rendermode InteractiveServer
+
+<style>
+    .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn-container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 10px;
+    }
+</style>
+
+<div class="main-content" style="margin-top: initial;">
+    <div class="form-container" style="padding: 20px;">
+        <EditForm class="form" Model="@_registerUser" FormName="registerForm">
+            <DataAnnotationsValidator />
+            <h3>Register</h3>
+            
+            
+            <div>
+                <label for="firstName">First name:*</label>
+                <InputText class="input" type="text" id="firstName" placeholder="Enter first name..."
+                    @bind-Value="_registerUser.FirstName" />
+                <ValidationMessage For="() => _registerUser.FirstName" />
+            </div>
+            <div>
+                <label for="lastName">Last name:*</label>
+                <InputText class="input" type="text" id="lastName" placeholder="Enter last name..."
+                    @bind-Value="_registerUser.LastName" />
+                <ValidationMessage For="() => _registerUser.LastName" />
+            </div>
+            <div>
+                <label for="userName">User name:*</label>
+                <InputText class="input" type="text" id="userName" placeholder="create a user name..."
+                    @bind-Value="_registerUser.UserName" />
+            </div>
+            <div>
+                <label for="location">Location:*</label>
+                <InputText class="input" type="text" id="location" placeholder="create a user name..."
+                    @bind-Value="_registerUser.Location" />
+            </div>
+            <div>
+                <label for="phoneNumber">PhoneNumber number:*</label>
+                <InputNumber  class="input" type="number" id="phoneNumber" placeholder="Enter your phone number..."
+                    @bind-Value="_registerUser.PhoneNumber" />
+            </div>
+            <div>
+                <label for="email">Email:*</label>
+                <InputText class="input" type="email" id="email" placeholder="Enter email..."
+                    @bind-Value="_registerUser.Email" />
+                <ValidationMessage For="() => _registerUser.Email" />
+            </div>
+            <div>
+                <label for="password">Password:*</label>
+                <InputText class="input" type="password" id="password" placeholder="Enter password..."
+                    @bind-Value="_registerUser.Password" />
+                <ValidationMessage For="() => _registerUser.Password" />
+            </div>
+            <div>
+                <label for="confirmPassword">Confirm password:*</label>
+                <InputText class="input" type="password" id="confirmPassword" placeholder="Confirm Password..."
+                    @bind-Value="_registerUser.ConfirmPassword" />
+                <ValidationMessage For="() => _registerUser.ConfirmPassword" />
+            </div>
+            <div class="btn-container">
+                <button class="btn btn--outlined" @onclick="RedirectToHome">Cancel</button>
+                <input class="btn btn--primary" type="submit" value="Submit"/>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private RegisterUser _registerUser {get; set;} = new();
+
+    private void RedirectToHome()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+
+    private void HandleSubmitAsync()
+    {
+        
+    }
+
+   
+}
